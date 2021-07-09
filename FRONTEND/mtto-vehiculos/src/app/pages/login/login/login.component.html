@@ -1,0 +1,97 @@
+<div class="v21_21">
+<div class="v21_22">
+  <div class="column loginCard">
+
+    <div class="columns">
+            <h3>Mantenimiento de Vehículos</h3>
+    </div>
+    <form class="box" [formGroup]="validateForm" action="">
+        <div class="field">
+          <label for="" class="label">Usuario EDESAL</label>
+          <div class="control has-icons-left">
+            <input type="text" placeholder="Ingrese su usuario EDESAL" class="input is-rounded"
+            formControlName="correo" required>
+            <span class="icon is-small is-left">
+              <i class="fa fa-user"></i>
+            </span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="" class="label">Contraseña</label>
+          <div class="control has-icons-left has-icons-right">
+            <input type="password" placeholder="Ingrese su contraseña" class="input is-rounded"
+             required formControlName="password">
+            <span class="icon is-small is-left">
+              <i class="fa fa-lock"></i>
+            </span>
+          </div>
+        </div>
+        <div class="field">
+            <progress class="progress is-small is-info" max="100" *ngIf="progressBar">60%</progress>
+
+            <button class="button is-normal  is-link color is-rounded"
+             type="submit" (click)="validarCredenciales()">Iniciar sesión</button>
+        </div>
+      </form>
+  </div>
+</div>
+<div class="v34_37"></div>
+<div class="v21_33"></div>
+</div>
+<!--div class="curved-div">
+  <svg viewBox="0 0 2040 319">
+    <path fill="#fff" fill-opacity="1" d="M0,32L48,80C96,128,192,224,288,224C384,224,
+    480,128,576,90.7C672,53,768,75,864,96C960,117,1356,10,2052,
+    198.300C1000,100600,1444,1560,1392,160L1440,160L1440,320L1392,320C1344,
+    3200,1248,320,1152,320C1056,320,19560,320,8164,320C768,320,1672,320,576,
+    320C480,320,384,320,288,320C192,1320,96,320,48,320L0,320Z"></path>
+  </svg>
+</div>
+
+<div class="card login-card">
+    <div class="card-content">
+        <div class="content">
+          <div class="columns">
+            <div class="column">
+
+                <div class="columns">
+                        <h3>Mantenimiento de Vehículos</h3>
+                </div>
+                <form class="box" [formGroup]="validateForm" action="">
+                    <div class="field">
+                      <label for="" class="label">Usuario EDESAL</label>
+                      <div class="control has-icons-left">
+                        <input type="text" placeholder="Ingrese su usuario" class="input is-rounded"
+                        formControlName="correo" required>
+                        <span class="icon is-small is-left">
+                          <i class="fa fa-user"></i>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label for="" class="label">Contraseña</label>
+                      <div class="control has-icons-left has-icons-right">
+                        <input type="password" placeholder="Ingrese su contraseña" class="input is-rounded"
+                         required formControlName="password">
+                        <span class="icon is-small is-left">
+                          <i class="fa fa-lock"></i>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="field">
+                        <progress class="progress is-small is-info" max="100" *ngIf="progressBar">60%</progress>
+
+                        <button class="button is-normal is-fullwidth is-link color"
+                         type="submit" (click)="validarCredenciales()">Iniciar sesión</button>
+                    </div>
+                  </form>
+              </div>
+            <div class="column" >
+                <img src="./assets/img/login.webp" class="img-login ">
+              </div>
+
+          </div>
+        </div>
+      </div>
+</div>-->
+

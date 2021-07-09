@@ -1,0 +1,40 @@
+.header{
+    background-color: #120E4F !important;
+    color: white !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+a{
+    color: white !important;
+    font-family: 'Montserrat', sans-serif !important;
+    margin: auto !important;
+    font-size: 15px !important;
+}
+
+a:hover{
+    color: yellow !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+.navbar-end{
+    background-color: #120E4F !important;
+}
+.navbar-item{
+    background-color: #120E4F !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+.navbar-dropdown{
+    background-color: #120E4F !important;
+}
+.navbar-link{
+    background-color: #120E4F !important;
+}
+
+
+.main-content{
+    margin-top: 25px !important;
+    margin-left: 3% !important;
+    margin-right: 3% !important;
+}
+.menu{
+    box-shadow: 0 5px 4px rgba(0,0,0,0.30), 0 3px 1px rgba(0,0,0,0.22);
+}

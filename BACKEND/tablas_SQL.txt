@@ -1,0 +1,27 @@
+create table mtto_vh_roles(
+id int IDENTITY(1,1) PRIMARY KEY,
+rol varchar(50),
+estado int
+);
+
+create table mtto_vh_usuario_rol(
+id int IDENTITY(1,1) PRIMARY KEY,
+idUsuario int,
+idRol int,
+estado int
+);
+
+
+ALTER TABLE mtto_vh_usuario_rol
+ADD FOREIGN KEY (idRol) REFERENCES  mtto_vh_roles(id)
+
+insert into mtto_vh_roles values('Administrador',1);
+insert into mtto_vh_roles values('Encargado de mantenimiento',1);
+insert into mtto_vh_roles values('Solicitante',1);
+
+INSERT into mtto_vh_usuario_rol values(52,1,1);
+INSERT into mtto_vh_usuario_rol values(15,2,1);
+INSERT into mtto_vh_usuario_rol values(151,3,1);
+
+
+
