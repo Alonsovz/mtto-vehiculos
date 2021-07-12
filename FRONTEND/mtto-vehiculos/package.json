@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~11.0.5",
     "@angular/platform-browser-dynamic": "~11.0.5",
     "@angular/router": "~11.0.5",
+    "@syncfusion/ej2-angular-grids": "^19.2.46",
     "angular-notifier": "^9.0.1",
     "bulma": "^0.9.3",
     "font-awesome": "^4.7.0",
@@ -26,6 +27,7 @@
     "ngx-toastr": "^14.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "zinggrid": "^1.2.5",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

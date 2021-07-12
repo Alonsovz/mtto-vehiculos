@@ -52,4 +52,20 @@ class UsuarioController extends Controller
         }
        
     }
+
+     //metodo para obtener listado de usuarios para mostrar en tabla de vista de usuarios
+     public function getUsuariosTbl(){
+        $usuarios = 
+        DB::connection('comanda')->select("SELECT u.*,u.nombre+' '+u.apellido as nombreUsuario,
+        rs.rol as rol,rs.id as idRol, ur.id as idUsuarioRol from users u 
+       inner join mtto_vh_usuario_rol ur on ur.idUsuario = u.id
+       inner join mtto_vh_roles rs on rs.id = ur.idRol
+       where ur.estado = 1
+       order by ur.id desc
+        ");
+
+        return response()->json($usuarios);
+    }
+
+    
 }

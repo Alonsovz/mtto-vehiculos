@@ -8,6 +8,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { GridModule } from '@syncfusion/ej2-angular-grids';
 
 @NgModule({
   declarations: [
@@ -23,9 +24,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ToastrModule.forRoot({
       timeOut: 2000,
       progressBar: true,
-    } 
+    }
     ),
-    NgxPaginationModule
+    NgxPaginationModule,
+    GridModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [],

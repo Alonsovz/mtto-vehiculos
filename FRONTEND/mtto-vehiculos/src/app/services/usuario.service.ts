@@ -29,7 +29,7 @@ export class UsuarioService {
   get isusuarioLogueado(){
     return this.usuariologueado.asObservable();
   }
-  
+
   constructor(private http: HttpClient, private router: Router, private globalservice: GlobalService) { }
 
    // metodo para validar credenciales
@@ -37,5 +37,10 @@ export class UsuarioService {
     return this.http.post<Usuario>(this.globalservice.getUrlBackEnd() + 'validarCredenciales', usuario, httpOptions)
     .pipe(map(data => data as Usuario ));
   }
-  
+
+   //metodo para obtener objeto de usuarios para select
+   public getUsuariosTbl(): Observable<Usuario[]> {
+    return this.http.get(this.globalservice.getUrlBackEnd() + 'getUsuariosTbl').pipe(map(data => data as Usuario[]));
+  }
+
 }

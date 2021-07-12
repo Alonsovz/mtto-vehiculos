@@ -17,3 +17,4 @@ Route::get('/', function () {
 
 //rutas para usuarios
 Route::post('validarCredenciales', 'UsuarioController@validarCredenciales');
+Route::any('getUsuariosTbl', 'UsuarioController@getUsuariosTbl');
