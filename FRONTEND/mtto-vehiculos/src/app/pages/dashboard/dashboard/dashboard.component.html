@@ -1,22 +1,22 @@
-<nav class="navbar header menu" role="navigation" aria-label="main navigation">
+<nav class="navbar header menu static" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item">
         <img src="./assets/img/blanco.png" width="140" height="45">
       </a>
-  
+
     </div>
-  
+
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
         <a class="navbar-item">
             <img src="./assets/img/home.png" > &nbsp; Inicio
         </a>
-  
+
         <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
               <img src="./assets/img/folder.png" > &nbsp; Solicitudes
             </a>
-    
+
             <div class="navbar-dropdown">
               <a class="navbar-item">
                   <img src="./assets/img/new-file.png" > &nbsp; Nueva Solicitud
@@ -27,13 +27,13 @@
             </div>
           </div>
 
-      
-  
+
+
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
             <img src="./assets/img/blogger.png"> &nbsp; Administración
           </a>
-  
+
           <div class="navbar-dropdown">
             <a class="navbar-item">
                 <img src="./assets/img/clipboard.png" > &nbsp; Reportes
@@ -50,13 +50,13 @@
           </div>
         </div>
       </div>
-  
+
       <div class="navbar-end" style="margin-right: 3% !important;">
         <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
                 <img src="./assets/img/user.png" > &nbsp; {{user.alias}}
             </a>
-    
+
             <div class="navbar-dropdown">
                 <a class="navbar-item" (click)="cerrarSesion()">
                     <img src="./assets/img/sign-out.png" > &nbsp;Cerrar Sesión

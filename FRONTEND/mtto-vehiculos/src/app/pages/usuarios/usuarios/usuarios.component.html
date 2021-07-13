@@ -7,43 +7,45 @@
     </header>
 </div>
 
-<div class="card card-body">
-    <header class="card-header">
-      <p class="card-header-title">
-        <img src="./assets/img/users.png">
-      </p>
-
-    </header>
+<div class="card card-body" style="top: -60px !important;">
 
     <div class="card-content">
       <div class="columns">
-        <div class="column is-one-third" *ngFor="let obj of objUsuarios">
-          <div class="card" >
-            <div class="card-content">
-              {{obj.alias}}
+        <div class="column is-three-fifths"></div>
+        <div class="column is-one-quarter">
+          <div class="field">
+            <label class="label">Buscar</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Buscar">
             </div>
           </div>
         </div>
+
       </div>
 
-      <nav class="pagination" role="navigation" aria-label="pagination">
+      <table class="table is-bordered is-striped is-narrow is-hoverable">
+        <thead>
+          <tr>
+            <th style="background-color: #120E4F; color:white;">Usuario</th>
+            <th style="background-color: #120E4F; color:white;">Rol</th>
+            <th style="background-color: #120E4F; color:white;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of objUsuarios">
+            <td>{{obj.nombreUsuario}}</td>
+            <td>{{obj.rol}}</td>
+            <td>
+              <button class="button is-primary is-small is-light btn1"> <img src="./assets/img/editar.png" ></button>
+              <button class="button is-danger is-small is-light btn"><img src="./assets/img/trash.png" ></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-        <ul class="pagination-list">
-          <li>
-            <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
-          </li>
-          <li>
-            <a class="pagination-link" aria-label="Goto page 2">2</a>
-          </li>
-          <li>
-            <a class="pagination-link" aria-label="Goto page 3">3</a>
-          </li>
-        </ul>
-      </nav>
+      </div>
 
     </div>
-</div>
 
-<ng-template #buttons>
-  <button  ejs-button>Click Me</button>
-</ng-template>
+
+

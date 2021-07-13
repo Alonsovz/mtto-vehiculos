@@ -1,6 +1,7 @@
 .card-title{
     background: linear-gradient(to right, #120E4F 0%, #363363 10%, #FFFFFF 90%, #FFFFFF 100%);
     box-shadow: 0 5px 4px rgba(0,0,0,0.30), 0 3px 1px rgba(0,0,0,0.22);
+    top: -10px !important;
 }
 
 .card-header-title{
@@ -14,9 +15,44 @@
     box-shadow: 0 5px 4px rgba(0,0,0,0.30), 0 3px 1px rgba(0,0,0,0.22);
 }
 
+.edit{
+  margin-right: 5px !important;
+}
 
-.e-toolbar-item.e-ghidden .e-btn {
-  background: rgba(0, 0, 0, 0.12);
-  border-color: rgba(0, 0, 0, 0.12);
-  color: #212121;
+.btn1{
+  margin-left: 15% !important;
+}
+table{
+  width: 70% !important;
+  margin: auto !important;
+}
+
+
+thead {
+  display: table; /* to take the same width as tr */
+  width: calc(100% - 17px); /* - 17px because of the scrollbar width */
+}
+
+tbody {
+  display: block; /* to enable vertical scrolling */
+  max-height: 450px; /* e.g. */
+  overflow-y: scroll; /* keeps the scrollbar even if it doesn't need it; display purpose */
+}
+
+th, td {
+  width: 33.33%; /* to enable "word-break: break-all" */
+  padding: 5px;
+  word-break: break-all; /* 4. */
+}
+
+tr {
+  display: table; /* display purpose; th's border */
+  width: 100%;
+  box-sizing: border-box; /* because of the border (Chrome needs this line, but not FF) */
+}
+
+td {
+  text-align: center;
+  border-bottom: none;
+  border-left: none;
 }

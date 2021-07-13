@@ -8,6 +8,7 @@ a{
     font-family: 'Montserrat', sans-serif !important;
     margin: auto !important;
     font-size: 15px !important;
+
 }
 
 a:hover{
@@ -31,10 +32,16 @@ a:hover{
 
 
 .main-content{
-    margin-top: 25px !important;
+    margin-top: 75px !important;
     margin-left: 3% !important;
     margin-right: 3% !important;
 }
 .menu{
     box-shadow: 0 5px 4px rgba(0,0,0,0.30), 0 3px 1px rgba(0,0,0,0.22);
+}
+
+.static{
+  position: fixed !important;
+  top: 0 !important;
+  width: 100% !important;
 }
