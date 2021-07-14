@@ -18,3 +18,8 @@ Route::get('/', function () {
 //rutas para usuarios
 Route::post('validarCredenciales', 'UsuarioController@validarCredenciales');
 Route::any('getUsuariosTbl', 'UsuarioController@getUsuariosTbl');
+Route::any('getUsuarios', 'UsuarioController@getUsuarios');
+Route::any('getRoles', 'UsuarioController@getRoles');
+Route::post('guardarUsuario', 'UsuarioController@guardarUsuario');
+Route::post('eliminarUsuario', 'UsuarioController@eliminarUsuario');
+Route::post('editarUsuario', 'UsuarioController@editarUsuario');

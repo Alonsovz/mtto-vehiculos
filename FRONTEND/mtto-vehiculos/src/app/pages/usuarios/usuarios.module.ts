@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { UsuariosRoutingModule } from './usuarios-routing.module';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FilterService, GridModule, PagerModule, PageService, SortService,
-GroupService } from '@syncfusion/ej2-angular-grids';
+import { PipesModule } from 'src/app/pipes/pipes.module';
+
 
 @NgModule({
   declarations: [UsuariosComponent],
@@ -14,9 +14,8 @@ GroupService } from '@syncfusion/ej2-angular-grids';
     UsuariosRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    GridModule,
-    PagerModule,
+    PipesModule
   ],
-  providers: [PageService, SortService, FilterService, GroupService]
+  providers: []
 })
 export class UsuariosModule { }

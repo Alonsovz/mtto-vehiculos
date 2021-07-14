@@ -1,22 +1,73 @@
 <div class="card card-title">
-    <header class="card-header">
-      <p class="card-header-title">
-        <img src="./assets/img/users.png"> &nbsp; Gestión de usuarios
-      </p>
 
-    </header>
+      <div class="columns">
+
+        <div class="column is-two-thirds">
+          <p class="card-header-title">
+            <img src="./assets/img/users.png"> &nbsp; Gestión de usuarios
+          </p>
+        </div>
+
+        <div class="column is-one-third">
+          <div class="field has-addons btnAlign">
+            <p class="control">
+              <button class="button btnGroup" (click)="showListado()">
+                <span class="icon is-small">
+                  <img src="./assets/img/completed-task.png">
+                </span>
+                <span>Ver Listado</span>
+              </button>
+            </p>
+            <p class="control">
+              <button class="button btnGroup" (click)="showCardAgregar()">
+                <span class="icon is-small">
+                  <img src="./assets/img/add.png">
+                </span>
+                <span>Agregar nuevo usuario</span>
+              </button>
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+
 </div>
 
-<div class="card card-body" style="top: -60px !important;">
+<!--Skeleton loader-->
+<div class="cardLoader" *ngIf="showLoader">
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+</div>
+
+
+
+
+<div class="card card-body" style="top: -20px !important;" *ngIf="showData">
 
     <div class="card-content">
+
       <div class="columns">
-        <div class="column is-three-fifths"></div>
+        <div class="column is-two-thirds">
+          <h2 class="titulo">Listado de usuarios y roles asignados</h2>
+        </div>
+
         <div class="column is-one-quarter">
           <div class="field">
             <label class="label">Buscar</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Buscar">
+              <input class="input" type="text" placeholder="Buscar"
+              (ngModelChange)="ConvertToLower($event)" [(ngModel)]="_texto" id="texto" name="texto">
             </div>
           </div>
         </div>
@@ -32,7 +83,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let obj of objUsuarios">
+          <tr *ngFor="let obj of objUsuarios | searchusuario: texto">
             <td>{{obj.nombreUsuario}}</td>
             <td>{{obj.rol}}</td>
             <td>
@@ -43,9 +94,68 @@
         </tbody>
       </table>
 
+    </div>
+
+</div>
+
+
+
+<div class="card card-body addCard" style="top: -20px !important;" *ngIf="showCardAdd">
+  <div class="card-content">
+
+    <div class="columns">
+      <div class="column is-full">
+        <h2 class="titulo">Agregar nuevo Usuario</h2>
       </div>
 
     </div>
+
+    <form [formGroup]="agregarUsuarioForm">
+      <div class="field">
+        <div class="control has-icons-left ">
+          <div class="select inputSelect">
+            <select class="inputSelect" formControlName="usuario">
+              <option selected value="">Seleccione el usuario</option>
+              <option *ngFor="let user of listUsuarios" value="{{user.id}}">{{user.nombre}}</option>
+            </select>
+          </div>
+          <div class="icon is-small is-left">
+            <img src="./assets/img/user.png">
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control has-icons-left inputSelect">
+          <div class="select inputSelect">
+            <select class="inputSelect" formControlName="rol">
+              <option selected value="">Seleccione el rol a asignar</option>
+              <option *ngFor="let rl of listRoles" value="{{rl.id}}">{{rl.rol}}</option>
+            </select>
+          </div>
+          <div class="icon is-small is-left">
+            <img src="./assets/img/rol.png">
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="field">
+        <p class="control">
+          <button class="button is-link is-fullwidth" [disabled] = "agregarUsuarioForm.invalid"
+          (click)="guardarUsuario()">
+            Agregar Usuario
+          </button>
+          <br>
+          <button class="button is-link is-light is-fullwidth" (click)="showListado()">
+            Cancelar
+          </button>
+        </p>
+      </div>
+    </form>
+
+
+
+  </div>
+</div>
 
 
 

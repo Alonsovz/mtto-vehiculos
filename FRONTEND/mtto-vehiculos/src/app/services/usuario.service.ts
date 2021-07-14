@@ -5,6 +5,7 @@ import { GlobalService } from './global.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Rol } from '../models/rol';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -41,6 +42,25 @@ export class UsuarioService {
    //metodo para obtener objeto de usuarios para select
    public getUsuariosTbl(): Observable<Usuario[]> {
     return this.http.get(this.globalservice.getUrlBackEnd() + 'getUsuariosTbl').pipe(map(data => data as Usuario[]));
+  }
+
+
+    //metodo para obtener objeto de usuarios para select
+    public getUsuarios(): Observable<Usuario[]> {
+      return this.http.get(this.globalservice.getUrlBackEnd() + 'getUsuarios').pipe(map(data => data as Usuario[]));
+    }
+
+
+    //metodo para obtener objeto de datos para tabla
+   public getRoles(): Observable<Rol[]> {
+    return this.http.get(this.globalservice.getUrlBackEnd() + 'getRoles').pipe(map(data => data as Rol[]));
+  }
+
+
+   // metodo para guardar nuevo usuario
+   public guardarUsuario(usuario: Usuario): Observable<Usuario> {
+    return this.http.post<Usuario>(this.globalservice.getUrlBackEnd() + 'guardarUsuario', usuario, httpOptions)
+    .pipe(map(data => data as Usuario ));
   }
 
 }

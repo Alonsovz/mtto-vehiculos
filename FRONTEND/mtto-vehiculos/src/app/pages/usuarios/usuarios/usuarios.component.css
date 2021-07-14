@@ -1,9 +1,23 @@
+.addCard{
+  width: 60% !important;
+  margin: auto !important;
+}
+
 .card-title{
     background: linear-gradient(to right, #120E4F 0%, #363363 10%, #FFFFFF 90%, #FFFFFF 100%);
     box-shadow: 0 5px 4px rgba(0,0,0,0.30), 0 3px 1px rgba(0,0,0,0.22);
-    top: -10px !important;
+
 }
 
+form{
+  width: 60% !important ;
+  margin: auto !important;
+}
+
+.inputSelect
+{
+  width: 100% !important;
+}
 .card-header-title{
     color: white !important;
     font-family: 'Montserrat', sans-serif !important;
@@ -15,16 +29,56 @@
     box-shadow: 0 5px 4px rgba(0,0,0,0.30), 0 3px 1px rgba(0,0,0,0.22);
 }
 
+
+.cardLoader{
+  width: 60% !important;
+  margin: auto !important;
+  margin-top: 30px !important;
+}
+
+.load{
+  width: 90% !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .edit{
   margin-right: 5px !important;
 }
 
 .btn1{
-  margin-left: 15% !important;
+  margin-left: 25% !important;
 }
+
+.btnAlign{
+
+  float: right !important;
+  margin-right: 20px !important;
+}
+.btnGroup{
+  background-color: #120E4F;
+  color:white;
+  margin-top: 7px !important;
+}
+.btnGroup:hover{
+  background-color: #363363;
+  color:white;
+}
+
+.titulo{
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 20px !important;
+  text-align: center;
+  color: #120E4F !important;
+}
+
+
+
 table{
-  width: 70% !important;
+  width: 90% !important;
   margin: auto !important;
+  font-family: 'Montserrat', sans-serif !important;
 }
 
 

@@ -14,5 +14,10 @@ class VerifyCsrfToken extends BaseVerifier
     protected $except = [
         'validarCredenciales',
         'getUsuariosTbl',
+        'getUsuarios',
+        'getRoles',
+        'guardarUsuario',
+        'eliminarUsuario',
+        'editarUsuario',
     ];
 }

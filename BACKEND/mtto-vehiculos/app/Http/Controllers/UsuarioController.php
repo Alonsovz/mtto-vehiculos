@@ -67,5 +67,41 @@ class UsuarioController extends Controller
         return response()->json($usuarios);
     }
 
+
+    public function getRoles(){
+        $roles = 
+        DB::connection('comanda')->select("SELECT * from mtto_vh_roles where estado = 1");
+
+        return response()->json($roles);
+    }
+
+
+    public function getUsuarios(){
+        $usuarios = 
+        DB::connection('comanda')->select("SELECT distinct id,
+         nombre+' '+apellido as nombre from users where (estado is null or estado = 1)
+         and id not in (select idUsuario from mtto_vh_usuario_rol where estado = 1)
+         order by 2 asc");
+
+
+        return response()->json($usuarios);
+    }
+
+
+     //metodo para guardar usuarios
+     public function guardarUsuario(Request $request){
+        $usuario = $request["usuario"];
+        $rol = $request["rol"];
+
+        $insertar =  DB::connection('comanda')->table('mtto_vh_usuario_rol')
+        ->insert([
+            'idUsuario' => $usuario,
+            'idRol ' => $rol,
+            'estado' => 1,
+        ]);
+
+        return response()->json($insertar);
+    }
+
     
 }
