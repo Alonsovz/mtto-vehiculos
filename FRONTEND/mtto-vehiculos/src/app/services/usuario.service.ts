@@ -63,4 +63,18 @@ export class UsuarioService {
     .pipe(map(data => data as Usuario ));
   }
 
+
+   // metodo para editar usuario
+   public editarUsuario(usuario: Usuario): Observable<Usuario> {
+    return this.http.post<Usuario>(this.globalservice.getUrlBackEnd() + 'editarUsuario', usuario, httpOptions)
+    .pipe(map(data => data as Usuario ));
+  }
+
+
+   // metodo para eliminar usuario
+   public eliminarUsuario(usuario: Usuario): Observable<Usuario> {
+    return this.http.post<Usuario>(this.globalservice.getUrlBackEnd() + 'eliminarUsuario', usuario, httpOptions)
+    .pipe(map(data => data as Usuario ));
+  }
+
 }

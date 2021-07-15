@@ -8,43 +8,45 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item">
+        <a class="navbar-item" routerLink="template">
             <img src="./assets/img/home.png" > &nbsp; Inicio
         </a>
 
-        <div class="navbar-item has-dropdown is-hoverable">
+        <div class="navbar-item has-dropdown is-hoverable"
+        *ngIf="user.rol =='Solicitante' || user.rol =='Encargado de mantenimiento'">
             <a class="navbar-link">
               <img src="./assets/img/folder.png" > &nbsp; Solicitudes
             </a>
 
-            <div class="navbar-dropdown">
-              <a class="navbar-item">
+            <div class="navbar-dropdown" >
+              <a class="navbar-item" routerLink="n_solicitud">
                   <img src="./assets/img/new-file.png" > &nbsp; Nueva Solicitud
               </a><br>
-              <a class="navbar-item">
-                <img src="./assets/img/list.png" > &nbsp; Mis Solicitudes
+              <a class="navbar-item" routerLink="admin_solicitud">
+                <img src="./assets/img/list.png"> &nbsp; Mis Solicitudes
             </a>
             </div>
           </div>
 
 
 
-        <div class="navbar-item has-dropdown is-hoverable">
+        <div class="navbar-item has-dropdown is-hoverable"
+        *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
           <a class="navbar-link">
             <img src="./assets/img/blogger.png"> &nbsp; Administración
           </a>
 
           <div class="navbar-dropdown">
-            <a class="navbar-item">
-                <img src="./assets/img/clipboard.png" > &nbsp; Reportes
+            <a class="navbar-item" routerLink="reportes">
+                <img src="./assets/img/clipboard.png" *ngIf="user.rol =='Administrador'"> &nbsp; Reportes
             </a><br>
-            <a class="navbar-item">
-                <img src="./assets/img/folder-ad.png" > &nbsp; Solicitudes
+            <a class="navbar-item"  routerLink="admin_solicitud">
+                <img src="./assets/img/folder-ad.png"> &nbsp; Solicitudes
             </a><br>
-            <a class="navbar-item">
+            <a class="navbar-item" routerLink="vehiculos">
                 <img src="./assets/img/hatchback.png" > &nbsp; Vehículos
             </a><br>
-            <a class="navbar-item" routerLink="usuarios">
+            <a class="navbar-item" routerLink="usuarios" *ngIf="user.rol =='Administrador'">
                 <img src="./assets/img/man.png" > &nbsp; Usuarios
             </a><br>
           </div>

@@ -21,9 +21,12 @@ class UsuarioController extends Controller
         if ($password=="12345") 
         {     
             $usuariosesion =  json_encode( DB::connection('comanda')->select("
-            select u.*, r.rol as rol from mtto_vh_usuario_rol ur
+            select u.*, r.rol as rol,de.nombre as departamento,
+            u.nombre + ' ' + u.apellido as nombreUsuario
+            from mtto_vh_usuario_rol ur
             inner join users u on u.id = ur.idUsuario
             inner join mtto_vh_roles r on r.id = ur.idRol
+            inner join departamentos_edesal de ON de.id =u.departamento_id 
             where ur.estado = 1  and u.correo= '".$correo."'"));
 
             $arrayJson = [];
@@ -101,6 +104,30 @@ class UsuarioController extends Controller
         ]);
 
         return response()->json($insertar);
+    }
+
+
+    //metodo para eliminar usuarios
+    public function eliminarUsuario(Request $request){
+        $idUsuarioRol = $request["idUsuarioRol"];
+
+        $editar = DB::connection('comanda')->table('mtto_vh_usuario_rol')->where('id', $idUsuarioRol)
+        ->update(['estado' => 2 , 
+        ]);
+
+        return response()->json($editar);
+    }
+
+    //metodo para editar usuarios
+    public function editarUsuario(Request $request){
+        $idUsuarioRol = $request["idUsuarioRol"];
+        $rol = $request["idRol"];
+
+        $editar = DB::connection('comanda')->table('mtto_vh_usuario_rol')->where('id', $idUsuarioRol)
+        ->update(['idRol' => $rol , 
+        ]);
+
+        return response()->json($editar);
     }
 
     

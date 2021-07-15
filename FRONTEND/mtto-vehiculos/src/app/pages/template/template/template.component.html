@@ -1,0 +1,139 @@
+<!--Card para tabla de listado de vehiculos-->
+<div class="card card-body main" style="top: 35px !important;">
+
+  <div class="card-content">
+    <div class="columns">
+      <div class="column">
+        <h1>Sistema de control de mantenimiento de vehículos</h1>
+
+        <div class="columns" style="margin-top: 25px !important;"  *ngIf="user.rol =='Administrador'">
+          <div class="column">
+            <div class="card card-body">
+              <header class="cardheader"><br>
+                Administrar solicitudes
+              </header>
+              <div class="card-content">
+                <img src="./assets/img/document.png">
+
+                <button class="button is-link is-light is-small go" (click)="adminSolicitudes()">
+                  <img src="./assets/img/right-arrow.png">
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="card card-body">
+              <header class="cardheader"><br>
+                Reportes
+              </header>
+              <div class="card-content">
+                <img src="./assets/img/business-report.png">
+
+                <button class="button is-link is-light is-small go">
+                  <img src="./assets/img/right-arrow.png">
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="columns" style="margin-top: 25px !important;"
+        *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+          <div class="column">
+            <div class="card card-body">
+              <header class="cardheader"><br>
+                Vehículos
+              </header>
+              <div class="card-content">
+                <img src="./assets/img/car.png">
+
+                <button class="button is-link is-light is-small go" (click)="goVehiculos()">
+                  <img src="./assets/img/right-arrow.png">
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="column" *ngIf="user.rol =='Administrador'">
+            <div class="card card-body">
+              <header class="cardheader"><br>
+               Usuarios
+              </header>
+              <div class="card-content">
+                <img src="./assets/img/team.png">
+
+                <button class="button is-link is-light is-small go" (click)="goUsuarios()">
+                  <img src="./assets/img/right-arrow.png">
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="column" *ngIf="user.rol =='Encargado de mantenimiento'">
+            <div class="card card-body">
+              <header class="cardheader"><br>
+                Administrar solicitudes
+              </header>
+              <div class="card-content">
+                <img src="./assets/img/document.png">
+
+                <button class="button is-link is-light is-small go" (click)="adminSolicitudes()">
+                  <img src="./assets/img/right-arrow.png">
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <div class="columns" style="margin-top: 25px !important;"
+        *ngIf="user.rol =='Solicitante' || user.rol =='Encargado de mantenimiento'">
+          <div class="column">
+            <div class="card card-body">
+              <header class="cardheader"><br>
+                Nueva solicitud
+              </header>
+              <div class="card-content">
+                <img src="./assets/img/add-file.png">
+
+                <button class="button is-link is-light is-small go" (click)="nueva_solicitud()">
+                  <img src="./assets/img/right-arrow.png">
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="card card-body">
+              <header class="cardheader"><br>
+                Ver mis solicitudes
+              </header>
+              <div class="card-content">
+                <img src="./assets/img/my-files.png">
+
+                <button class="button is-link is-light is-small go" (click)="adminSolicitudes()">
+                  <img src="./assets/img/right-arrow.png">
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+      <div class="column">
+        <img src="./assets/img/dashboard6.PNG" class="bigImg">
+      </div>
+    </div>
+
+
+  </div>
+
+</div>

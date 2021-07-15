@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   progressBar = false;
   submitted = false;
   usuariosesion: Usuario = new Usuario();
-  
+
   constructor(private usuarioservice: UsuarioService, private toastr: ToastrService, private router: Router) {
     this.validateForm = new FormGroup({
       'correo' : new FormControl(''),
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
           this.toastr.error('Error','Credenciales inválidas');
         }else{
           this.toastr.success('Éxito','Inicio de sesión correcto');
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['dashboard/template']);
         }
       },
     );
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    
+
   }
 
 

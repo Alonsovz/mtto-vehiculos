@@ -14,6 +14,27 @@ const routes: Routes = [
         path: 'usuarios',
         loadChildren: () => import('./../usuarios/usuarios.module').then(m => m.UsuariosModule)
       },
+      {
+        path: 'vehiculos',
+        loadChildren: () => import('./../vehiculos/vehiculos.module').then(m => m.VehiculosModule)
+      },
+      {
+        path: 'template',
+        loadChildren: () => import('./../template/template.module').then(m => m.TemplateModule)
+      },
+      {
+        path: 'n_solicitud',
+        loadChildren: () => import('./../n-solicitud/n-solicitud.module').then(m => m.NSolicitudModule)
+      },
+      {
+        path: 'admin_solicitud',
+        loadChildren: () => import('./../admin-solicitud/admin-solicitud.module').then(m => m.AdminSolicitudModule)
+      },
+      {
+        path: 'reportes',
+        loadChildren: () => import('./../reportes/reportes.module').then(m => m.ReportesModule)
+      },
+
     ]
   }
 ];

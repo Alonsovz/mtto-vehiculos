@@ -23,3 +23,7 @@ Route::any('getRoles', 'UsuarioController@getRoles');
 Route::post('guardarUsuario', 'UsuarioController@guardarUsuario');
 Route::post('eliminarUsuario', 'UsuarioController@eliminarUsuario');
 Route::post('editarUsuario', 'UsuarioController@editarUsuario');
+
+//rutas para vehiculos
+Route::any('getVehiculos', 'VehiculosController@getVehiculos');
+

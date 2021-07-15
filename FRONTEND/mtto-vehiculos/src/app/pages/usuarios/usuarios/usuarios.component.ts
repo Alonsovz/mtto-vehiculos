@@ -16,16 +16,27 @@ export class UsuariosComponent implements OnInit {
   showLoader = true;
   showData = false;
   showCardAdd = false;
+  showCardEdit = false;
 
   objUsuarios: Usuario[];
   listUsuarios: Usuario[];
   listRoles : Rol[];
   agregarUsuarioForm : FormGroup;
+  editarUsuarioForm : FormGroup;
+  userEdit: Usuario = new Usuario();
+
 
   constructor(private usuario: UsuarioService, private toastr: ToastrService) {
     this.agregarUsuarioForm = new FormGroup({
       'usuario' : new FormControl('',[Validators.required]),
       'rol' : new FormControl('',[Validators.required]),
+
+    });
+
+    this.editarUsuarioForm = new FormGroup({
+      'idUsuarioRol': new FormControl('',[Validators.required]),
+      'nombre' : new FormControl('',[Validators.required]),
+      'idRol' : new FormControl('',[Validators.required]),
 
     });
   }
@@ -51,12 +62,14 @@ export class UsuariosComponent implements OnInit {
       this.texto = evt.toLowerCase();
   }
 
+  //metodo para mostrar listado de usuarios
   showListado(){
     this.showData = true;
     this.showCardAdd = false;
-
+    this.showCardEdit = false;
   }
 
+  //metodo para mostrar card de agregar usuario
   showCardAgregar(){
     this.agregarUsuarioForm = new FormGroup({
       'usuario' : new FormControl('',[Validators.required]),
@@ -69,6 +82,7 @@ export class UsuariosComponent implements OnInit {
 
     this.showLoader = false;
     this.showData = false;
+    this.showCardEdit = false;
     this.showCardAdd = true;
   }
 
@@ -105,5 +119,79 @@ export class UsuariosComponent implements OnInit {
 
     );
   }
+
+//metodo para mostrar card de editar usuario
+  showCardEditar(user){
+    this.showCardEdit = true;
+    this.showData = false;
+    this.userEdit = user;
+  }
+
+  //metodo para guardar edición de usuario
+  editarUsuario(){
+    let datosUsuario : Usuario = new Usuario();
+
+    datosUsuario = this.editarUsuarioForm.value;
+
+    this.usuario.editarUsuario(datosUsuario).subscribe(
+      response => {
+
+      },
+      err => {
+        this.toastr.error('Oopss!!','Algo salió mal');
+      },
+      () => {
+
+        this.toastr.success('Confirmación','Usuario modificado');
+        this.usuario.getUsuariosTbl().subscribe(
+          data => {
+            if(this.texto === '') {
+              this.objUsuarios = data;
+            }
+            this.objUsuarios = data;
+            this.showLoader = false;
+            this.showData = true;
+          });
+        this.showListado();
+        }
+
+
+
+    );
+  }
+
+//metodo para eliminar usuarios
+  eliminarUsuario(usuario){
+
+    this.usuario.eliminarUsuario(usuario).subscribe(
+      response => {
+
+      },
+      err => {
+        this.toastr.error('Oopss!!','Algo salió mal');
+      },
+      () => {
+
+        this.toastr.success('Confirmación','Usuario eliminado');
+        this.usuario.getUsuariosTbl().subscribe(
+          data => {
+            if(this.texto === '') {
+              this.objUsuarios = data;
+            }
+            this.objUsuarios = data;
+            this.showLoader = false;
+            this.showData = true;
+          });
+        this.showListado();
+        }
+
+
+    );
+
+  }
+
+
+
+
 
 }

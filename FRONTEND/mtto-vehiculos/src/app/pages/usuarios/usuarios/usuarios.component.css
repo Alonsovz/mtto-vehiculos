@@ -5,8 +5,6 @@
 
 .card-title{
     background: linear-gradient(to right, #120E4F 0%, #363363 10%, #FFFFFF 90%, #FFFFFF 100%);
-    box-shadow: 0 5px 4px rgba(0,0,0,0.30), 0 3px 1px rgba(0,0,0,0.22);
-
 }
 
 form{
@@ -26,7 +24,6 @@ form{
 
 .card-body{
     margin-top: 60px !important;
-    box-shadow: 0 5px 4px rgba(0,0,0,0.30), 0 3px 1px rgba(0,0,0,0.22);
 }
 
 

@@ -1,0 +1,29 @@
+.main{
+  background-color: #FFFFFF !important;
+  width: 90% !important;
+  margin: auto !important;
+  margin-top: 60px !important;
+
+}
+
+.bigImg{
+float: right !important;
+}
+
+h1{
+  font-size: 25px !important;
+  color: #120E4F !important;
+  font-family: 'Montserrat', sans-serif !important;
+  text-align: center;
+}
+
+.cardheader{
+  text-align: center !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: bold !important;
+}
+
+.go{
+  float: right !important;
+  bottom: -30px !important;
+}

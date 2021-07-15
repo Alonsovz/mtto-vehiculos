@@ -12,7 +12,7 @@ import { GridModule } from '@syncfusion/ej2-angular-grids';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

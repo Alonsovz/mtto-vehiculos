@@ -52,7 +52,7 @@
 
 
 
-
+<!--Card para tabla de listado de usuarios-->
 <div class="card card-body" style="top: -20px !important;" *ngIf="showData">
 
     <div class="card-content">
@@ -87,8 +87,12 @@
             <td>{{obj.nombreUsuario}}</td>
             <td>{{obj.rol}}</td>
             <td>
-              <button class="button is-primary is-small is-light btn1"> <img src="./assets/img/editar.png" ></button>
-              <button class="button is-danger is-small is-light btn"><img src="./assets/img/trash.png" ></button>
+              <button class="button is-primary is-small is-light btn1" (click)="showCardEditar(obj)">
+                <img src="./assets/img/editar.png" >
+              </button>
+              <button class="button is-danger is-small is-light btn" (click)="eliminarUsuario(obj)">
+                <img src="./assets/img/trash.png" >
+              </button>
             </td>
           </tr>
         </tbody>
@@ -99,7 +103,7 @@
 </div>
 
 
-
+<!--Card para agregar un nuevo usuario-->
 <div class="card card-body addCard" style="top: -20px !important;" *ngIf="showCardAdd">
   <div class="card-content">
 
@@ -157,5 +161,59 @@
   </div>
 </div>
 
+
+<!--Card para editar un usuario-->
+<div class="card card-body addCard" style="top: -20px !important;" *ngIf="showCardEdit">
+  <div class="card-content">
+
+    <div class="columns">
+      <div class="column is-full">
+        <h2 class="titulo">Editar Usuario</h2>
+      </div>
+
+    </div>
+
+    <form [formGroup]="editarUsuarioForm">
+      <div class="field">
+        <div class="control has-icons-left ">
+
+          <input class="input" type="text" [(ngModel)]="userEdit.nombreUsuario" readonly  formControlName="nombre">
+          <input class="input" type="hidden" formControlName="idUsuarioRol" name="idUsuarioRol" [(ngModel)]="userEdit.idUsuarioRol">
+          <div class="icon is-small is-left">
+            <img src="./assets/img/user.png">
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control has-icons-left inputSelect">
+
+          <div class="select inputSelect">
+            <select class="inputSelect" formControlName="idRol" [(ngModel)]="userEdit.idRol">
+              <option *ngFor="let rl of listRoles" value="{{rl.id}}">{{rl.rol}}</option>
+            </select>
+          </div>
+          <div class="icon is-small is-left">
+            <img src="./assets/img/rol.png">
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="field">
+        <p class="control">
+          <button class="button is-link is-fullwidth" [disabled] = "editarUsuarioForm.invalid"
+          (click)="editarUsuario()">
+            Editar Usuario
+          </button>
+          <br>
+          <button class="button is-link is-light is-fullwidth" (click)="showListado()">
+            Cancelar
+          </button>
+        </p>
+      </div>
+    </form>
+
+
+  </div>
+</div>
 
 

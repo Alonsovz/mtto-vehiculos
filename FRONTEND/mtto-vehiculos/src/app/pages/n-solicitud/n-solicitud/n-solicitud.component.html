@@ -1,0 +1,155 @@
+<div class="card card-body">
+  <header class="card-header">
+    <p class="card-title">Nueva solicitud de control de vehículos</p>
+  </header>
+  <div class="card-content">
+    <form [formGroup]="n_solicitud_form">
+      <div class="columns">
+        <div class="column is-one-fifth">
+              <label class="label">Fecha de solicitud</label>
+        </div>
+
+        <div class="column">
+            <p class="control is-expanded has-icons-left">
+              <input class="input is-link fullWidth" type="date">
+              <span class="icon is-small is-left">
+                <img src="./assets/img/schedule.png" >
+              </span>
+            </p>
+        </div>
+
+        <div class="column">
+              <label class="label">Días estimados de trabajo</label>
+        </div>
+
+        <div class="column">
+            <p class="control is-expanded has-icons-left">
+              <input class="input is-link is-fullWidth" type="number" placeholder="Selecciona la cantidad">
+              <span class="icon is-small is-left">
+                <img src="./assets/img/calendar.png" >
+              </span>
+            </p>
+        </div>
+
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <label class="label">Nombre del Solicitante</label>
+        </div>
+        <div class="column is-half">
+          <p class="control is-expanded has-icons-left">
+            <input class="input is-link is-fullWidth" placeholder="Nombre del solictante"
+            [(ngModel)]="user.nombreUsuario" formControlName="nombreSolicitante" readonly>
+            <span class="icon is-small is-left">
+              <img src="./assets/img/user.png" >
+            </span>
+          </p>
+          <input class="input" type="hidden"[(ngModel)]="user.id" formControlName="idUsuario" readonly>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <label class="label">Área</label>
+        </div>
+        <div class="column is-half">
+          <p class="control is-expanded has-icons-left">
+            <input class="input is-link is-fullWidth" placeholder="Área del solictante"
+            [(ngModel)]="user.departamento" readonly formControlName="departamento">
+            <span class="icon is-small is-left">
+              <img src="./assets/img/location.png" >
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <label class="label">Número de equipo</label>
+        </div>
+        <div class="column is-half">
+          <div class="control has-icons-left inputSelect">
+            <div class="select inputSelect is-link">
+              <select class="inputSelect is-link" formControlName="vehiculo_id">
+                <option selected value="">Selecciona el vehículo</option>
+                <option *ngFor="let vh of objVehiculos" value="{{vh.id}}">{{vh.numeracion}}</option>
+              </select>
+            </div>
+            <div class="icon is-small is-left">
+              <img src="./assets/img/steps.png">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <label class="label">Kilometraje según sticker:</label>
+        </div>
+        <div class="column is-half">
+          <p class="control is-expanded has-icons-left">
+            <input class="input is-link is-fullWidth" type="number" placeholder="Kilometraje según sticker">
+            <span class="icon is-small is-left">
+              <img src="./assets/img/km.png" >
+            </span>
+          </p>
+        </div>
+      </div>
+
+
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <label class="label">Kilometraje actual</label>
+        </div>
+        <div class="column is-half">
+          <p class="control is-expanded has-icons-left">
+            <input class="input is-link is-fullWidth" type="number" placeholder="Kilometraje actual">
+            <span class="icon is-small is-left">
+              <img src="./assets/img/km.png" >
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <br><br>
+      <div class="columns">
+        <div class="column is-one-fifth">
+              <label class="label">Tipo de mantenimiento</label>
+        </div>
+
+        <div class="column is-one-fifth">
+          <label class="radio">
+            <input type="radio" name="member">
+            Correctivo
+          </label>
+
+          <label class="radio">
+            <input type="radio" name="member">
+            Preventivo
+          </label>
+          </div>
+
+          <div class="column is-one-fift">
+            <label class="label">Observaciones adicionales</label>
+          </div>
+
+          <div class="column is-half">
+            <textarea class="textarea is-link" placeholder="Observaciones adicionales"></textarea>
+          </div>
+      </div>
+      <br><br>
+
+      <div class="columns">
+        <div class="column">
+          <button class="button is-link is-fullwidth">Guardar solicitud</button>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column">
+          <button class="button is-link is-light is-fullwidth">Cancelar solicitud</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

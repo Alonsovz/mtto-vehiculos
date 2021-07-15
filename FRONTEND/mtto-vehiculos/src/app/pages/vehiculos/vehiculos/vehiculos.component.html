@@ -1,0 +1,107 @@
+<div class="card card-title">
+
+  <div class="columns">
+
+    <div class="column is-two-thirds">
+      <p class="card-header-title">
+        <img src="./assets/img/coche.png"> &nbsp; Gestión de Vehículos
+      </p>
+    </div>
+
+    <!--<div class="column is-one-third">
+      <div class="field has-addons btnAlign">
+        <p class="control">
+          <button class="button btnGroup" (click)="showListado()">
+            <span class="icon is-small">
+              <img src="./assets/img/completed-task.png">
+            </span>
+            <span>Ver Listado</span>
+          </button>
+        </p>
+        <p class="control">
+          <button class="button btnGroup" (click)="showCardAgregar()">
+            <span class="icon is-small">
+              <img src="./assets/img/add.png">
+            </span>
+            <span>Agregar nuevo usuario</span>
+          </button>
+        </p>
+      </div>
+    </div>-->
+
+  </div>
+
+
+</div>
+
+<!--Skeleton loader-->
+<div class="cardLoader" *ngIf="showLoader">
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+  <progress class="progress is-small is-light load" max="100">15%</progress>
+</div>
+
+
+<!--Card para tabla de listado de vehiculos-->
+<div class="card card-body" style="top: -20px !important;" *ngIf="showData">
+
+  <div class="card-content">
+
+    <div class="columns">
+      <div class="column is-two-thirds">
+        <h2 class="titulo">Listado de vehiculos</h2>
+      </div>
+
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label class="label">Buscar</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Buscar"
+            (ngModelChange)="ConvertToLower($event)" [(ngModel)]="_texto" id="texto" name="texto">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <table class="table is-bordered is-striped is-narrow is-hoverable">
+      <thead>
+        <tr>
+          <th style="background-color: #120E4F; color:white;">Numeración</th>
+          <th style="background-color: #120E4F; color:white;">Placa</th>
+          <th style="background-color: #120E4F; color:white;">Grupo</th>
+          <th style="background-color: #120E4F; color:white;">Dueño</th>
+          <th style="background-color: #120E4F; color:white;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vh of tblVehiculos | searchvehiculos: texto">
+          <td>{{vh.numeracion}}</td>
+          <td>{{vh.placa}}</td>
+          <td>{{vh.grupo}}</td>
+          <td>{{vh.dueno}}</td>
+
+          <td>
+            <button class="button is-primary is-small is-light btn1">
+              <img src="./assets/img/editar.png" >
+            </button>
+            <button class="button is-danger is-small is-light btn">
+              <img src="./assets/img/trash.png" >
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>

@@ -10,15 +10,17 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class DashboardComponent implements OnInit {
   user: Usuario = new Usuario();
-  
+
   constructor( private router: Router, private usuarioservice : UsuarioService,
     private crf: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     if(localStorage.getItem('usuario_mtto') !== null){
-    
+
       this.user = JSON.parse(localStorage.getItem("usuario_mtto"));
 
+  }else{
+    this.router.navigate(['login']);
   }
   }
 

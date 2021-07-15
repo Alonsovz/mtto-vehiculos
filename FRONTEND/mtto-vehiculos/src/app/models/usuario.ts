@@ -5,7 +5,9 @@ export class Usuario {
     public  fecha_creacion: string;
     public  estado: string;
     public  nombre: string;
+    public nombreUsuario: string;
     public  apellido: string;
     public  rol: string;
     public  correo: string;
+    public departamento: string;
 }
