@@ -24,4 +24,38 @@ INSERT into mtto_vh_usuario_rol values(15,2,1);
 INSERT into mtto_vh_usuario_rol values(151,3,1);
 
 
+create table mtto_vh_estado_soli(
+id int IDENTITY(1,1) PRIMARY KEY,
+estado varchar(50)
+);
+
+insert into mtto_vh_estado_soli values('Ingresado');
+insert into mtto_vh_estado_soli values('Aprobada jefatura');
+insert into mtto_vh_estado_soli values('Aprobada mtto');
+insert into mtto_vh_estado_soli values('Finalizada');
+
+create table mtto_vh_solictud(
+id int IDENTITY(1,1) PRIMARY KEY,
+fecha_solicitud datetime,
+dias_estimados int,
+id_solicitante int,
+id_vehiculo int,
+km_sticker float,
+km_actual float,
+tipo_mantemiento varchar(10),
+observaciones varchar(500),
+estado int,
+aprobacion_jefatura varchar(40),
+fecha_aprob_jefe datetime,
+aprobacion_mtto varchar(40),
+fecha_aprob_mtto datetime,
+idEliminado int
+);
+
+
+ALTER TABLE mtto_vh_solictud
+ADD FOREIGN KEY (estado) REFERENCES  mtto_vh_estado_soli(id)
+
+
+
 

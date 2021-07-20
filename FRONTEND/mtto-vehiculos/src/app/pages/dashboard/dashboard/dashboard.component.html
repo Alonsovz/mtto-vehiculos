@@ -22,7 +22,7 @@
               <a class="navbar-item" routerLink="n_solicitud">
                   <img src="./assets/img/new-file.png" > &nbsp; Nueva Solicitud
               </a><br>
-              <a class="navbar-item" routerLink="admin_solicitud">
+              <a class="navbar-item" routerLink="admin_solicitud" *ngIf="user.rol =='Solicitante'">
                 <img src="./assets/img/list.png"> &nbsp; Mis Solicitudes
             </a>
             </div>

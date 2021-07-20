@@ -19,6 +19,7 @@ class VerifyCsrfToken extends BaseVerifier
         'guardarUsuario',
         'eliminarUsuario',
         'editarUsuario',
-        'getVehiculos'
+        'getVehiculos',
+        'guardar_solicitud'
     ];
 }

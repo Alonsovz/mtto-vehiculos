@@ -1,6 +1,6 @@
 <div class="card card-body">
   <header class="card-header">
-    <p class="card-title">Nueva solicitud de control de vehículos</p>
+    <p class="card-title">Nueva solicitud para mantenimiento de vehículos</p>
   </header>
   <div class="card-content">
     <form [formGroup]="n_solicitud_form">
@@ -11,7 +11,7 @@
 
         <div class="column">
             <p class="control is-expanded has-icons-left">
-              <input class="input is-link fullWidth" type="date">
+              <input class="input is-link fullWidth" type="date" formControlName="fecha_solicitud">
               <span class="icon is-small is-left">
                 <img src="./assets/img/schedule.png" >
               </span>
@@ -24,7 +24,8 @@
 
         <div class="column">
             <p class="control is-expanded has-icons-left">
-              <input class="input is-link is-fullWidth" type="number" placeholder="Selecciona la cantidad">
+              <input class="input is-link is-fullWidth" type="number" placeholder="Selecciona la cantidad"
+              formControlName="dias_estimados">
               <span class="icon is-small is-left">
                 <img src="./assets/img/calendar.png" >
               </span>
@@ -45,7 +46,7 @@
               <img src="./assets/img/user.png" >
             </span>
           </p>
-          <input class="input" type="hidden"[(ngModel)]="user.id" formControlName="idUsuario" readonly>
+          <input class="input" type="hidden"[(ngModel)]="user.id" formControlName="id_solicitante" readonly>
         </div>
       </div>
 
@@ -71,7 +72,7 @@
         <div class="column is-half">
           <div class="control has-icons-left inputSelect">
             <div class="select inputSelect is-link">
-              <select class="inputSelect is-link" formControlName="vehiculo_id">
+              <select class="inputSelect is-link" formControlName="id_vehiculo">
                 <option selected value="">Selecciona el vehículo</option>
                 <option *ngFor="let vh of objVehiculos" value="{{vh.id}}">{{vh.numeracion}}</option>
               </select>
@@ -89,7 +90,8 @@
         </div>
         <div class="column is-half">
           <p class="control is-expanded has-icons-left">
-            <input class="input is-link is-fullWidth" type="number" placeholder="Kilometraje según sticker">
+            <input class="input is-link is-fullWidth" type="number" placeholder="Kilometraje según sticker"
+            formControlName="km_sticker">
             <span class="icon is-small is-left">
               <img src="./assets/img/km.png" >
             </span>
@@ -104,7 +106,8 @@
         </div>
         <div class="column is-half">
           <p class="control is-expanded has-icons-left">
-            <input class="input is-link is-fullWidth" type="number" placeholder="Kilometraje actual">
+            <input class="input is-link is-fullWidth" type="number" placeholder="Kilometraje actual"
+            formControlName="km_actual">
             <span class="icon is-small is-left">
               <img src="./assets/img/km.png" >
             </span>
@@ -120,12 +123,12 @@
 
         <div class="column is-one-fifth">
           <label class="radio">
-            <input type="radio" name="member">
+            <input type="radio" name="tipo_mantemiento" value="Correctivo" formControlName="tipo_mantemiento">
             Correctivo
           </label>
 
           <label class="radio">
-            <input type="radio" name="member">
+            <input type="radio" name="tipo_mantemiento" value="Preventivo" formControlName="tipo_mantemiento">
             Preventivo
           </label>
           </div>
@@ -135,19 +138,20 @@
           </div>
 
           <div class="column is-half">
-            <textarea class="textarea is-link" placeholder="Observaciones adicionales"></textarea>
+            <textarea class="textarea is-link" placeholder="Observaciones adicionales"
+            formControlName="observaciones"></textarea>
           </div>
       </div>
       <br><br>
 
       <div class="columns">
         <div class="column">
-          <button class="button is-link is-fullwidth">Guardar solicitud</button>
+          <button class="button is-link is-fullwidth" (click)="guardar_soli()">Guardar solicitud</button>
         </div>
       </div>
       <div class="columns">
         <div class="column">
-          <button class="button is-link is-light is-fullwidth">Cancelar solicitud</button>
+          <button class="button is-link is-light is-fullwidth" (click)="cancelar_soli()">Cancelar solicitud</button>
         </div>
       </div>
     </form>

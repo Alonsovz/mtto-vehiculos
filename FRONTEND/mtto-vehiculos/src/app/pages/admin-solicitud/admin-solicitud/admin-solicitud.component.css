@@ -1,0 +1,80 @@
+.tabTitle{
+  color: #120E4F !important;
+  font-family: 'Montserrat', sans-serif !important;
+  margin-left: 15px !important;
+  margin-bottom: 10px !important;
+  font-size: 13px !important;
+  font-weight: bold !important;
+}
+
+p{
+  color: #120E4F !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: bold !important;
+}
+
+.content-tab{
+border-left: 1px solid rgb(221, 221, 221) !important;
+border-right: 1px solid rgb(221, 221, 221) !important;
+border-bottom: 1px solid rgb(221, 221, 221) !important;
+width: 100% !important;
+}
+
+.contenido{
+  width: 90% !important;
+  margin: auto !important;
+  margin-bottom: 30px !important;
+
+}
+
+
+.card-b{
+  margin-top: -20px;
+}
+
+
+table{
+  width: 90% !important;
+  margin: auto !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 13px !important;
+}
+
+
+thead {
+  display: table; /* to take the same width as tr */
+  width: calc(100% - 17px); /* - 17px because of the scrollbar width */
+}
+
+tbody {
+  display: block; /* to enable vertical scrolling */
+  max-height: 450px; /* e.g. */
+  overflow-y: scroll; /* keeps the scrollbar even if it doesn't need it; display purpose */
+}
+
+th, td {
+  width: 20%; /* to enable "word-break: break-all" */
+  padding: 5px;
+  word-break: break-all; /* 4. */
+}
+
+tr {
+  display: table; /* display purpose; th's border */
+  width: 100%;
+  box-sizing: border-box; /* because of the border (Chrome needs this line, but not FF) */
+
+}
+
+th{
+  background-color: #120E4F !important;
+  color:white !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 13px !important;
+}
+
+td {
+  text-align: center;
+  border-bottom: none;
+  border-left: none;
+}

@@ -1,1 +1,340 @@
-<p>admin-solicitud works!</p>
+ <div class="tabs is-left is-boxed">
+    <ul>
+      <li *ngIf="user.rol =='Solicitante'"
+       class="tab is-active" (click)="openTab($event,'mis_solicitudes')">
+        <a>
+          <span><img src="./assets/img/report.png" ></span>
+          <span class="tabTitle">Mis solictudes</span>
+        </a>
+      </li>
+      <li class="tab is-active" (click)="openTab($event,'ingresadas')" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+        <a>
+          <span><img src="./assets/img/request.png" ></span>
+          <span class="tabTitle">Ingresadas</span>
+        </a>
+      </li>
+      <li class="tab" (click)="openTab($event,'aprob_jefe')" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+        <a>
+          <span><img src="./assets/img/leader.png" ></span>
+          <span class="tabTitle">Aprobadas por Jefatura</span>
+        </a>
+      </li >
+      <li class="tab" (click)="openTab($event,'aprob_mtto')" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+        <a >
+          <span><img src="./assets/img/process.png" ></span>
+          <span class="tabTitle">Aprobadas por encargado de mtto</span>
+        </a>
+      </li>
+      <li  class="tab" (click)="openTab($event,'finalizadas')" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+        <a>
+          <span><img src="./assets/img/sign.png" ></span>
+          <span class="tabTitle">Finalizadas</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card card-b">
+
+      <div id="mis_solicitudes" class="content-tab" *ngIf="user.rol =='Solicitante'">
+        <div class="contenido">
+              <p class="card-header-title">
+                <img src="./assets/img/report.png"> &nbsp; Listado de mis solictudes
+              </p>
+        </div>
+
+        <div class="contenido">
+
+          <div class="tabs is-left is-boxed">
+            <ul>
+              <li class="tab-mis is-active" (click)="openTab_mis($event,'mis_ingresadas')">
+                <a>
+                  <span class="tabTitle">Ingresadas</span>
+                </a>
+              </li>
+              <li class="tab-mis" (click)="openTab_mis($event,'mis_aprob_jefe')">
+                <a>
+                  <span class="tabTitle">Aprobadas por Jefatura</span>
+                </a>
+              </li >
+              <li class="tab-mis" (click)="openTab_mis($event,'mis_aprob_mtto')">
+                <a>
+                  <span class="tabTitle">Aprobadas por encargado de mtto</span>
+                </a>
+              </li>
+              <li  class="tab-mis" (click)="openTab_mis($event,'mis_finalizadas')">
+                <a>
+                  <span class="tabTitle">Finalizadas</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+
+
+          <div>
+
+
+
+            <div id="mis_ingresadas" class="content-tab-mis">
+              <div class="contenido">
+                    <p class="card-header-title">
+                      Listado de solicitudes ingresadas
+                    </p>
+              </div>
+
+              <div class="contenido">
+                <table class="table is-bordered is-striped is-narrow is-hoverable">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Fecha</th>
+                      <th>Vehículo</th>
+                      <th>Tipo de Mantenimiento</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div id="mis_aprob_jefe" class="content-tab-mis" style="display:none">
+
+              <div class="contenido">
+                <p class="card-header-title">
+                  Listado de solicitudes aprobadas por jefatura
+                </p>
+              </div>
+
+              <div class="contenido">
+                <table class="table is-bordered is-striped is-narrow is-hoverable">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Fecha</th>
+                      <th>Vehículo</th>
+                      <th>Tipo de Mantenimiento</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+
+            <div id="mis_aprob_mtto" class="content-tab-mis" style="display:none">
+              <div class="contenido">
+                <p class="card-header-title">
+                  Listado de solicitudes aprobadas por encargado de mtto
+                </p>
+              </div>
+
+              <div class="contenido">
+                <table class="table is-bordered is-striped is-narrow is-hoverable">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Fecha</th>
+                      <th>Vehículo</th>
+                      <th>Tipo de Mantenimiento</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div id="mis_finalizadas" class="content-tab-mis" style="display:none">
+
+              <div class="contenido">
+                <p class="card-header-title">
+                  Listado de solicitudes finalizadas
+                </p>
+              </div>
+
+              <div class="contenido">
+                <table class="table is-bordered is-striped is-narrow is-hoverable">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Fecha</th>
+                      <th>Vehículo</th>
+                      <th>Tipo de Mantenimiento</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+
+        </div>
+
+        </div>
+      </div>
+
+      <div id="ingresadas" class="content-tab"  *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+        <div class="contenido">
+              <p class="card-header-title">
+                <img src="./assets/img/request.png"> &nbsp; Listado de solicitudes ingresadas
+              </p>
+        </div>
+
+        <div class="contenido">
+          <table class="table is-bordered is-striped is-narrow is-hoverable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Vehículo</th>
+                <th>Tipo de Mantenimiento</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="aprob_jefe" class="content-tab" style="display:none" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+
+        <div class="contenido">
+          <p class="card-header-title">
+            <img src="./assets/img/leader.png"> &nbsp; Listado de solicitudes aprobadas por jefatura
+          </p>
+        </div>
+
+        <div class="contenido">
+          <table class="table is-bordered is-striped is-narrow is-hoverable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Vehículo</th>
+                <th>Tipo de Mantenimiento</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <div id="aprob_mtto" class="content-tab" style="display:none" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+        <div class="contenido">
+          <p class="card-header-title">
+            <img src="./assets/img/process.png"> &nbsp; Listado de solicitudes aprobadas por encargado de mtto
+          </p>
+        </div>
+
+        <div class="contenido">
+          <table class="table is-bordered is-striped is-narrow is-hoverable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Vehículo</th>
+                <th>Tipo de Mantenimiento</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="finalizadas" class="content-tab" style="display:none" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+
+        <div class="contenido">
+          <p class="card-header-title">
+            <img src="./assets/img/sign.png"> &nbsp; Listado de solicitudes finalizadas
+          </p>
+        </div>
+
+        <div class="contenido">
+          <table class="table is-bordered is-striped is-narrow is-hoverable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Vehículo</th>
+                <th>Tipo de Mantenimiento</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+  </div>
