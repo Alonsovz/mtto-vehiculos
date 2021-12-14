@@ -28,7 +28,6 @@ export class VehiculosComponent implements OnInit {
           this.tblVehiculos = data;
         }
         this.tblVehiculos = data;
-        console.log(this.tblVehiculos);
         this.showLoader = false;
         this.showData = true;
       });

@@ -7,6 +7,40 @@
   font-weight: bold !important;
 }
 
+.titulo{
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 20px !important;
+  text-align: center;
+  color: #120E4F !important;
+}
+
+label{
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: bold !important;
+  font-size: 12px !important;
+  text-align: right !important;
+  color: #120E4F !important;
+}
+
+input{
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 15px !important;
+}
+
+textarea{
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 15px !important;
+}
+
+
+.cardLoader{
+  width: 60% !important;
+  margin: auto !important;
+  margin-top: 60px !important;
+  margin-bottom: 60px !important;
+}
+
 p{
   color: #120E4F !important;
   font-family: 'Montserrat', sans-serif !important;
@@ -78,3 +112,30 @@ td {
   border-bottom: none;
   border-left: none;
 }
+
+
+.btn-tbl{
+  margin-left: 30% !important;
+}
+
+.acciones_td{
+  width: 15% !important;
+}
+
+
+#modalSolicitud{
+  width: 100% !important;
+  margin: auto !important;
+
+}
+
+.size{
+  width: 90% !important;
+}
+
+
+.form_soli{
+  width: 80% !important;
+  margin: auto !important;
+}
+

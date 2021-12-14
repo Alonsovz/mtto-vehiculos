@@ -20,6 +20,24 @@ class VerifyCsrfToken extends BaseVerifier
         'eliminarUsuario',
         'editarUsuario',
         'getVehiculos',
-        'guardar_solicitud'
+        'guardar_solicitud',
+        'getSolicitudes_Ing',
+        'getSolicitudes_AproJefe',
+        'getSolicitudes_AproMtto',
+        'getSolicitudes_Fin',
+        'getMisSolicitudes_Ing',
+        'getMisSolicitudes_AproJefe',
+        'getMisSolicitudes_AproMtto',
+        'getMisSolicitudes_Fin',
+        'aprobarSolicitudJefe',
+        'aprobarSolicitudMtto',
+        'finalizarSolicitud',
+        'getKmbyVehiculo',
+        'getConteoAdmin',
+        'getConteoUser',
+        'getTipoMtto',
+        'getContratos',
+        'guardarContrato',
+        'eliminarContrato'
     ];
 }

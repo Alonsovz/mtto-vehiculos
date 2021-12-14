@@ -42,20 +42,72 @@ id_solicitante int,
 id_vehiculo int,
 km_sticker float,
 km_actual float,
-tipo_mantemiento varchar(10),
+tipo_mantenimiento varchar(10),
 observaciones varchar(500),
 estado int,
 aprobacion_jefatura varchar(40),
 fecha_aprob_jefe datetime,
 aprobacion_mtto varchar(40),
 fecha_aprob_mtto datetime,
-idEliminado int
+idEliminado int,
+observaciones_finales varchar(500),
+fecha_finalizacion datetime,
+usuario_finalizacion varchar(40)
 );
 
 
 ALTER TABLE mtto_vh_solictud
 ADD FOREIGN KEY (estado) REFERENCES  mtto_vh_estado_soli(id)
 
+create table mtto_vh_tipos_mtto(
+id int IDENTITY(1,1) PRIMARY KEY,
+nombre varchar(100),
+mtto varchar(15),
+estado int
+);
+
+
+insert into mtto_vh_tipos_mtto values('Cambio Alfombras','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Alineado de vehículo','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Batería','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Cambio de Aceite','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Cambio de amortiguadores','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Cambio de llantas','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Enderezado y Pintura','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Escobillas limpia parabrisas','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Forro para timón','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Lavado de Motor','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Mano de obra por aire acondicionado','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Mano de obra por mantenimiento','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Mano de obra por revisión eléctrica ','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Recarga de Aire Acondicionado','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Reparación de cajones','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Revisión y Reparación de Bomba combustible','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Revisión y Reparación de Dirección','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Revisión y Reparación de Frenos ','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Revisión y Reparación de Motor','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Revisión y Reparación de Motor de Arranque','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Revisión y Reparación de Suspensión','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Revisión y Reparación de Transmisión','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Tapicería de asientos','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Otros','Correctivo',1);
+insert into mtto_vh_tipos_mtto values('Taller','Preventivo',1);
+insert into mtto_vh_tipos_mtto values('Agencia','Preventivo',1);
+
+
+CREATE table mtto_contratos_vehiculos(
+id int IDENTITY(1,1) PRIMARY KEY,
+n_contrato varchar(50),
+nombre_agencia varchar(50),
+vehiculo_id int,
+rango_km_inicio float,
+rango_km_fin float,
+serv_restantes int,
+estado_contrato int
+);
+
+ALTER TABLE mtto_contratos_vehiculos
+ADD FOREIGN KEY (vehiculo_id) REFERENCES  vh_vehiculos(id)
 
 
 

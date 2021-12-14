@@ -9,5 +9,5 @@ export class Usuario {
     public  apellido: string;
     public  rol: string;
     public  correo: string;
-    public departamento: string;
+    public area: string;
 }

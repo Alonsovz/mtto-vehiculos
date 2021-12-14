@@ -20,12 +20,24 @@ export class NSolicitudService {
 
   constructor(private http: HttpClient, private router: Router, private globalservice: GlobalService) { }
 
-
       // metodo para guardar nueva solicitud de mantenimiento
       public guardar_solicitud(clasificacion: NSolicitud): Observable<NSolicitud> {
         return this.http.post<NSolicitud>(this.globalservice.getUrlBackEnd() + 'guardar_solicitud', clasificacion, httpOptions)
         .pipe(map(data => data as NSolicitud ));
       }
 
+
+      public getKmbyVehiculo(vehiculo: NSolicitud): Observable<NSolicitud> {
+        return this.http.post<NSolicitud>(this.globalservice.getUrlBackEnd() + 'getKmbyVehiculo', vehiculo, httpOptions)
+        .pipe(map(data => data as NSolicitud ));
+      }
+
+
+
+
+      public getTipoMtto(data: NSolicitud): Observable<NSolicitud[]> {
+        return this.http.post<NSolicitud[]>(this.globalservice.getUrlBackEnd() + 'getTipoMtto', data, httpOptions)
+        .pipe(map(data => data as NSolicitud[] ));
+      }
 
 }

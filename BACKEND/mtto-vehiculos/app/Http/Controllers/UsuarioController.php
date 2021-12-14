@@ -19,40 +19,24 @@ class UsuarioController extends Controller
        
         $result = [];
         if ($password=="12345") 
-        {     
-            $usuariosesion =  json_encode( DB::connection('comanda')->select("
-            select u.*, r.rol as rol,de.nombre as departamento,
-            u.nombre + ' ' + u.apellido as nombreUsuario
-            from mtto_vh_usuario_rol ur
-            inner join users u on u.id = ur.idUsuario
-            inner join mtto_vh_roles r on r.id = ur.idRol
-            inner join departamentos_edesal de ON de.id =u.departamento_id 
-            where ur.estado = 1  and u.correo= '".$correo."'"));
-
-            $arrayJson = [];
-            foreach (json_decode($usuariosesion, true) as $value){
-                $arrayJson = $value;
-            }
-    
-            return $arrayJson;
-        }else{
-
+        { 
+            $passform = ($password);
+        }
+        else{
             $passform = md5($password);
-
+        }
             $usuariosesion =  json_encode( DB::connection('comanda')->select("
-            select u.*, r.rol as rol from mtto_vh_usuario_rol ur
+            select u.*, r.rol as rol, u.nombre+' '+u.apellido as nombreUsuario, de.nombre as area from mtto_vh_usuario_rol ur
             inner join users u on u.id = ur.idUsuario
             inner join mtto_vh_roles r on r.id = ur.idRol
+            inner join departamentos_edesal de on de.id = u.departamento_id 
             where ur.estado = 1 and u.correo = '".$correo."' and u.password = '".$passform."'"));
 
             $arrayJson = [];
             foreach (json_decode($usuariosesion, true) as $value){
                 $arrayJson = $value;
             }
-    
             return $arrayJson;
-
-        }
        
     }
 

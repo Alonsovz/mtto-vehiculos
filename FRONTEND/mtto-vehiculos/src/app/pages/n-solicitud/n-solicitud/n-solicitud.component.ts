@@ -16,8 +16,9 @@ import { VehiculosService } from 'src/app/services/vehiculos.service';
 export class NSolicitudComponent implements OnInit {
   user : Usuario = new Usuario();
   objVehiculos: Vehiculos[];
-
+  km_actuales: any;
   n_solicitud_form: FormGroup;
+  tipo_mtto: any;
 
   constructor(private router: Router, private vehiculo: VehiculosService,
     private soli_service: NSolicitudService,  private toastr: ToastrService) {
@@ -32,7 +33,8 @@ export class NSolicitudComponent implements OnInit {
       'id_vehiculo': new FormControl('',[Validators.required]),
       'km_sticker': new FormControl('',[Validators.required]),
       'km_actual': new FormControl('',[Validators.required]),
-      'tipo_mantemiento': new FormControl('',[Validators.required]),
+      'tipo_mantenimiento': new FormControl('0',[Validators.required]),
+      'detalles_mtto': new FormControl('0',[Validators.required]),
       'observaciones': new FormControl('',[Validators.required]),
     });
    }
@@ -77,6 +79,30 @@ export class NSolicitudComponent implements OnInit {
 
 
     );
+  }
+
+
+  getKmbyVehiculo(){
+    let datos : NSolicitud = new NSolicitud();
+
+    datos = this.n_solicitud_form.value;
+
+    this.soli_service.getKmbyVehiculo(datos).subscribe(
+      data => {
+        this.km_actuales = data;
+      });
+  }
+
+
+  getTipoMtto(){
+    let datos : NSolicitud = new NSolicitud();
+
+    datos = this.n_solicitud_form.value;
+
+    this.soli_service.getTipoMtto(datos).subscribe(
+      data => {
+        this.tipo_mtto = data;
+      });
   }
 
 }

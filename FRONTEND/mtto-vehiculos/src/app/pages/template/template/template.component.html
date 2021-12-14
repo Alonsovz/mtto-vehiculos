@@ -88,12 +88,29 @@
             </div>
           </div>
 
+
+          <div class="column"
+          *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+            <div class="card card-body">
+              <header class="cardheader"><br>
+                Contratos de Vh
+              </header>
+              <div class="card-content">
+                <img src="./assets/img/contrato.png">
+
+                <button class="button is-link is-light is-small go" (click)="contratos()">
+                  <img src="./assets/img/right-arrow.png">
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
 
 
 
         <div class="columns" style="margin-top: 25px !important;"
-        *ngIf="user.rol =='Solicitante' || user.rol =='Encargado de mantenimiento'">
+        *ngIf="user.rol =='Solicitante' || user.rol =='Encargado de mantenimiento' || user.rol =='Jefatura'">
           <div class="column">
             <div class="card card-body">
               <header class="cardheader"><br>
@@ -124,7 +141,10 @@
             </div>
           </div>
 
+
+
         </div>
+
 
 
       </div>

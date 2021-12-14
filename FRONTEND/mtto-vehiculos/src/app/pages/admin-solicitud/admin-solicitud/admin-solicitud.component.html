@@ -1,40 +1,45 @@
- <div class="tabs is-left is-boxed">
+ <div class="tabs is-left is-boxed" *ngIf="user.rol =='Solicitante'">
     <ul>
-      <li *ngIf="user.rol =='Solicitante'"
+      <li
        class="tab is-active" (click)="openTab($event,'mis_solicitudes')">
         <a>
           <span><img src="./assets/img/report.png" ></span>
           <span class="tabTitle">Mis solictudes</span>
         </a>
       </li>
-      <li class="tab is-active" (click)="openTab($event,'ingresadas')" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+      </ul>
+  </div>
+  <div class="tabs is-left is-boxed" *ngFor="let conteo of conteoAdmin">
+    <ul>
+      <li class="tab is-active" (click)="openTab($event,'ingresadas')" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento' || user.rol =='Jefatura'">
         <a>
           <span><img src="./assets/img/request.png" ></span>
-          <span class="tabTitle">Ingresadas</span>
+          <span class="tabTitle"><span class="tag is-link">{{conteo.conteoIng}}</span> Ingresadas</span>
         </a>
       </li>
-      <li class="tab" (click)="openTab($event,'aprob_jefe')" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+      <li class="tab" (click)="openTab($event,'aprob_jefe')" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'  || user.rol =='Jefatura'">
         <a>
           <span><img src="./assets/img/leader.png" ></span>
-          <span class="tabTitle">Aprobadas por Jefatura</span>
+          <span class="tabTitle"> <span class="tag is-link">{{conteo.conteoApJ}}</span> Aprobadas por Jefatura</span>
         </a>
       </li >
-      <li class="tab" (click)="openTab($event,'aprob_mtto')" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+      <li class="tab" (click)="openTab($event,'aprob_mtto')" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'  || user.rol =='Jefatura'">
         <a >
           <span><img src="./assets/img/process.png" ></span>
-          <span class="tabTitle">Aprobadas por encargado de mtto</span>
+          <span class="tabTitle"> <span class="tag is-link">{{conteo.conteoApM}}</span> Aprobadas por encargado de mtto</span>
         </a>
       </li>
-      <li  class="tab" (click)="openTab($event,'finalizadas')" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+      <li  class="tab" (click)="openTab($event,'finalizadas')" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'  || user.rol =='Jefatura'">
         <a>
           <span><img src="./assets/img/sign.png" ></span>
-          <span class="tabTitle">Finalizadas</span>
+          <span class="tabTitle"><span class="tag is-link">{{conteo.conteoF}}</span>   Finalizadas</span>
         </a>
       </li>
     </ul>
   </div>
 
   <div class="card card-b">
+
 
       <div id="mis_solicitudes" class="content-tab" *ngIf="user.rol =='Solicitante'">
         <div class="contenido">
@@ -46,25 +51,25 @@
         <div class="contenido">
 
           <div class="tabs is-left is-boxed">
-            <ul>
+            <ul *ngFor="let conteo of conteoUser">
               <li class="tab-mis is-active" (click)="openTab_mis($event,'mis_ingresadas')">
                 <a>
-                  <span class="tabTitle">Ingresadas</span>
+                  <span class="tabTitle"> <span class="tag is-info">{{conteo.conteoIng}}</span> Ingresadas</span>
                 </a>
               </li>
               <li class="tab-mis" (click)="openTab_mis($event,'mis_aprob_jefe')">
                 <a>
-                  <span class="tabTitle">Aprobadas por Jefatura</span>
+                  <span class="tabTitle"><span class="tag is-info">{{conteo.conteoApJ}}</span>  Aprobadas por Jefatura</span>
                 </a>
               </li >
               <li class="tab-mis" (click)="openTab_mis($event,'mis_aprob_mtto')">
                 <a>
-                  <span class="tabTitle">Aprobadas por encargado de mtto</span>
+                  <span class="tabTitle"><span class="tag is-info">{{conteo.conteoApM}}</span>  Aprobadas por encargado de mtto</span>
                 </a>
               </li>
               <li  class="tab-mis" (click)="openTab_mis($event,'mis_finalizadas')">
                 <a>
-                  <span class="tabTitle">Finalizadas</span>
+                  <span class="tabTitle"><span class="tag is-info">{{conteo.conteoF}}</span>  Finalizadas</span>
                 </a>
               </li>
             </ul>
@@ -91,16 +96,17 @@
                       <th>Fecha</th>
                       <th>Vehículo</th>
                       <th>Tipo de Mantenimiento</th>
-                      <th>Acciones</th>
+                      <th class="acciones_td">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                    <tr *ngFor="let soli of objMisSoli_ingresadas">
+                      <td>{{soli.id}}</td>
+                      <td>{{soli.fechaSolicitud}}</td>
+                      <td>{{soli.vehiculo}}</td>
+                      <td>{{soli.tipo_mantenimiento}}</td>
+                      <td class="acciones_td"><button class="button is-link is-small is-rounded btn-tbl has-tooltip-right"
+                        data-tooltip="Ver solicitud" (click)=verDetalleSoli(soli)><img src="./assets/img/eyes.png"></button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -123,16 +129,16 @@
                       <th>Fecha</th>
                       <th>Vehículo</th>
                       <th>Tipo de Mantenimiento</th>
-                      <th>Acciones</th>
+                      <th  class="acciones_td">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                    <tr *ngFor="let soli of objMisSoli_AproJefe">
+                      <td>{{soli.id}}</td>
+                      <td>{{soli.fechaSolicitud}}</td>
+                      <td>{{soli.vehiculo}}</td>
+                      <td>{{soli.tipo_mantenimiento}}</td>
+                      <td  class="acciones_td"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -155,16 +161,17 @@
                       <th>Fecha</th>
                       <th>Vehículo</th>
                       <th>Tipo de Mantenimiento</th>
-                      <th>Acciones</th>
+                      <th  class="acciones_td">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                    <tr *ngFor="let soli of objMisSoli_AproMtto">
+                      <td>{{soli.id}}</td>
+                      <td>{{soli.fechaSolicitud}}</td>
+                      <td>{{soli.vehiculo}}</td>
+                      <td>{{soli.tipo_mantenimiento}}</td>
+                      <td class="acciones_td"><button class="button is-link is-small is-rounded btn-tbl has-tooltip-right"
+                        data-tooltip="Ver solicitud" (click)=verDetalleSoli(soli)><img src="./assets/img/eyes.png"></button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -187,16 +194,17 @@
                       <th>Fecha</th>
                       <th>Vehículo</th>
                       <th>Tipo de Mantenimiento</th>
-                      <th>Acciones</th>
+                      <th  class="acciones_td">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                    <tr *ngFor="let soli of objMisSoli_Fin">
+                      <td>{{soli.id}}</td>
+                      <td>{{soli.fechaSolicitud}}</td>
+                      <td>{{soli.vehiculo}}</td>
+                      <td>{{soli.tipo_mantenimiento}}</td>
+                      <td class="acciones_td"><button class="button is-link is-small is-rounded btn-tbl has-tooltip-right"
+                        data-tooltip="Ver solicitud" (click)=verDetalleSoli(soli)><img src="./assets/img/eyes.png"></button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -209,14 +217,15 @@
         </div>
       </div>
 
-      <div id="ingresadas" class="content-tab"  *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
-        <div class="contenido">
+      <div   id="ingresadas" class="content-tab"  *ngIf="user.rol != 'Solicitante'">
+        <div class="contenido" *ngIf="showIng">
               <p class="card-header-title">
                 <img src="./assets/img/request.png"> &nbsp; Listado de solicitudes ingresadas
               </p>
         </div>
 
-        <div class="contenido">
+
+        <div class="contenido" *ngIf="showIng">
           <table class="table is-bordered is-striped is-narrow is-hoverable">
             <thead>
               <tr>
@@ -224,31 +233,32 @@
                 <th>Fecha</th>
                 <th>Vehículo</th>
                 <th>Tipo de Mantenimiento</th>
-                <th>Acciones</th>
+                <th class="acciones_td">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <tr *ngFor="let soli of objSoli_ingresadas">
+                <td>{{soli.id}}</td>
+                <td>{{soli.fechaSolicitud}}</td>
+                <td>{{soli.vehiculo}}</td>
+                <td>{{soli.tipo_mantenimiento}}</td>
+                <td class="acciones_td"><button class="button is-link is-small is-rounded btn-tbl has-tooltip-right"
+                  data-tooltip="Ver solicitud" (click)=verDetalleSoli(soli)><img src="./assets/img/eyes.png"></button></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <div id="aprob_jefe" class="content-tab" style="display:none" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+      <div  id="aprob_jefe" class="content-tab" style="display:none" *ngIf="user.rol != 'Solicitante'">
 
-        <div class="contenido">
+        <div class="contenido" *ngIf="showApJ">
           <p class="card-header-title">
             <img src="./assets/img/leader.png"> &nbsp; Listado de solicitudes aprobadas por jefatura
           </p>
         </div>
 
-        <div class="contenido">
+        <div class="contenido" *ngIf="showApJ">
           <table class="table is-bordered is-striped is-narrow is-hoverable">
             <thead>
               <tr>
@@ -256,16 +266,17 @@
                 <th>Fecha</th>
                 <th>Vehículo</th>
                 <th>Tipo de Mantenimiento</th>
-                <th>Acciones</th>
+                <th class="acciones_td">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <tr *ngFor="let soli of objSoli_AproJefe">
+                <td>{{soli.id}}</td>
+                <td>{{soli.fechaSolicitud}}</td>
+                <td>{{soli.vehiculo}}</td>
+                <td>{{soli.tipo_mantenimiento}}</td>
+                <td class="acciones_td"><button class="button is-link is-small is-rounded btn-tbl has-tooltip-right"
+                  data-tooltip="Ver solicitud" (click)=verDetalleSoli(soli)><img src="./assets/img/eyes.png"></button></td>
               </tr>
             </tbody>
           </table>
@@ -273,14 +284,14 @@
 
       </div>
 
-      <div id="aprob_mtto" class="content-tab" style="display:none" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
-        <div class="contenido">
+      <div id="aprob_mtto" class="content-tab" style="display:none" *ngIf="user.rol != 'Solicitante'">
+        <div class="contenido" *ngIf="showApM">
           <p class="card-header-title">
             <img src="./assets/img/process.png"> &nbsp; Listado de solicitudes aprobadas por encargado de mtto
           </p>
         </div>
 
-        <div class="contenido">
+        <div class="contenido" *ngIf="showApM">
           <table class="table is-bordered is-striped is-narrow is-hoverable">
             <thead>
               <tr>
@@ -288,31 +299,32 @@
                 <th>Fecha</th>
                 <th>Vehículo</th>
                 <th>Tipo de Mantenimiento</th>
-                <th>Acciones</th>
+                <th class="acciones_td">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <tr *ngFor="let soli of objSoli_AproMtto">
+                <td>{{soli.id}}</td>
+                <td>{{soli.fechaSolicitud}}</td>
+                <td>{{soli.vehiculo}}</td>
+                <td>{{soli.tipo_mantenimiento}}</td>
+                <td class="acciones_td"><button class="button is-link is-small is-rounded btn-tbl has-tooltip-right"
+                  data-tooltip="Ver solicitud" (click)=verDetalleSoli(soli)><img src="./assets/img/eyes.png"></button></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <div id="finalizadas" class="content-tab" style="display:none" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+      <div id="finalizadas" class="content-tab" style="display:none" *ngIf="user.rol != 'Solicitante'">
 
-        <div class="contenido">
+        <div class="contenido" *ngIf="showFin">
           <p class="card-header-title">
             <img src="./assets/img/sign.png"> &nbsp; Listado de solicitudes finalizadas
           </p>
         </div>
 
-        <div class="contenido">
+        <div class="contenido" *ngIf="showFin">
           <table class="table is-bordered is-striped is-narrow is-hoverable">
             <thead>
               <tr>
@@ -320,16 +332,17 @@
                 <th>Fecha</th>
                 <th>Vehículo</th>
                 <th>Tipo de Mantenimiento</th>
-                <th>Acciones</th>
+                <th class="acciones_td">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <tr *ngFor="let soli of objSoli_Fin">
+                <td>{{soli.id}}</td>
+                <td>{{soli.fechaSolicitud}}</td>
+                <td>{{soli.vehiculo}}</td>
+                <td>{{soli.tipo_mantenimiento}}</td>
+                <td class="acciones_td"><button class="button is-link is-small is-rounded btn-tbl has-tooltip-right"
+                  data-tooltip="Ver solicitud" (click)=verDetalleSoli(soli)><img src="./assets/img/eyes.png"></button></td>
               </tr>
             </tbody>
           </table>
@@ -337,4 +350,294 @@
 
       </div>
 
+
+
   </div>
+
+
+
+
+
+
+  <!--Card detalles solicitud-->
+  <div class="modal" id="modalSolicitud">
+    <div class="modal-background"></div>
+    <div class="modal-card size">
+      <header class="modal-card-head">
+        <p class="modal-card-title titulo">Detalle de solicitud</p>
+
+        <button class="delete" aria-label="close"(click)="showListadoAdmin()" *ngIf="user.rol != 'Solicitante'">
+        </button>
+        <button class="delete" aria-label="close" (click)="showListadoMis()" *ngIf="user.rol =='Solicitante'">
+        </button>
+
+
+      </header>
+      <section class="modal-card-body">
+
+        <form [formGroup]="n_solicitud_form" class="form_soli">
+          <div class="columns">
+            <div class="column is-one-fifth">
+                  <label class="label">Fecha de solicitud</label>
+            </div>
+
+            <div class="column">
+                <p class="control is-expanded has-icons-left">
+                  <input class="input is-link fullWidth" type="date" formControlName="fecha_solicitud" [(ngModel)]="datos_solicitud.fechaSoli" readonly>
+                  <span class="icon is-small is-left">
+                    <img src="./assets/img/schedule.png" >
+                  </span>
+                </p>
+            </div>
+
+            <div class="column">
+                  <label class="label">Días estimados de trabajo</label>
+            </div>
+
+            <div class="column">
+                <p class="control is-expanded has-icons-left">
+                  <input class="input is-link is-fullWidth" type="number" placeholder="Selecciona la cantidad" readonly
+                  formControlName="dias_estimados" [(ngModel)]="datos_solicitud.dias_estimados">
+                  <span class="icon is-small is-left">
+                    <img src="./assets/img/calendar.png" >
+                  </span>
+                </p>
+            </div>
+
+          </div>
+
+          <div class="columns">
+            <div class="column is-one-fifth">
+              <label class="label">Solicitante</label>
+            </div>
+            <div class="column is-half">
+              <p class="control is-expanded has-icons-left">
+                <input class="input is-link is-fullWidth" placeholder="Nombre del solictante" readonly
+                [(ngModel)]="datos_solicitud.solicitante" formControlName="nombreSolicitante" readonly>
+                <span class="icon is-small is-left">
+                  <img src="./assets/img/user.png" >
+                </span>
+              </p>
+              <input class="input" type="hidden"[(ngModel)]="user.id" formControlName="id_solicitante" readonly>
+            </div>
+          </div>
+
+          <div class="columns">
+            <div class="column is-one-fifth">
+              <label class="label">Área</label>
+            </div>
+            <div class="column is-half">
+              <p class="control is-expanded has-icons-left">
+                <input class="input is-link is-fullWidth" placeholder="Área del solictante" readonly
+                [(ngModel)]="user.area" readonly formControlName="departamento">
+                <span class="icon is-small is-left">
+                  <img src="./assets/img/location.png" >
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div class="columns">
+            <div class="column is-one-fifth">
+              <label class="label">Número de equipo</label>
+            </div>
+            <div class="column is-half">
+              <div class="control has-icons-left inputSelect">
+                <div class="select inputSelect is-link">
+                  <select class="inputSelect is-link" formControlName="id_vehiculo" [(ngModel)]="datos_solicitud.id_vehiculo" readonly>
+                    <option selected value="">Selecciona el vehículo</option>
+                    <option *ngFor="let vh of objVehiculos" value="{{vh.id}}">{{vh.numeracion}}</option>
+                  </select>
+                </div>
+                <div class="icon is-small is-left">
+                  <img src="./assets/img/steps.png">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="columns">
+            <div class="column is-one-fifth">
+              <label class="label">Kilometraje según sticker:</label>
+            </div>
+            <div class="column is-half">
+              <p class="control is-expanded has-icons-left">
+                <input class="input is-link is-fullWidth" type="number" placeholder="Kilometraje según sticker" readonly
+                formControlName="km_sticker" [(ngModel)]="datos_solicitud.km_sticker">
+                <span class="icon is-small is-left">
+                  <img src="./assets/img/km.png" >
+                </span>
+              </p>
+            </div>
+          </div>
+
+
+          <div class="columns">
+            <div class="column is-one-fifth">
+              <label class="label">Kilometraje actual</label>
+            </div>
+            <div class="column is-half">
+              <p class="control is-expanded has-icons-left">
+                <input class="input is-link is-fullWidth" type="number" placeholder="Kilometraje actual" readonly
+                formControlName="km_actual" [(ngModel)]="datos_solicitud.km_actual">
+                <span class="icon is-small is-left">
+                  <img src="./assets/img/km.png" >
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <br><br>
+          <div class="columns">
+            <div class="column is-one-fifth">
+                  <label class="label">Tipo de mantenimiento</label>
+            </div>
+
+            <div class="column is-one-fifth">
+              <label class="radio">
+                <input type="radio" name="tipo_mantenimiento" value="Correctivo" formControlName="tipo_mantenimiento" [(ngModel)]="datos_solicitud.tipo_mantenimiento" readonly>
+                Correctivo
+              </label>
+
+              <label class="radio">
+                <input type="radio" name="tipo_mantenimiento" value="Preventivo" formControlName="tipo_mantenimiento" [(ngModel)]="datos_solicitud.tipo_mantenimiento" readonly>
+                Preventivo
+              </label>
+              </div>
+
+              <div class="column is-one-fifth">
+                <label class="label">Observaciones adicionales</label>
+              </div>
+
+              <div class="column is-half">
+                <textarea class="textarea is-link" placeholder="Observaciones adicionales" [(ngModel)]="datos_solicitud.observaciones" readonly
+                formControlName="observaciones"></textarea>
+              </div>
+
+
+
+          </div>
+
+
+          <div class="columns" *ngIf="(datos_solicitud.estado >= 1)">
+            <div class="column is-one-fifth">
+                  <label class="label">Aprobación Jefatura</label>
+            </div>
+
+            <div class="column  is-one-fifth">
+                  <input class="input is-link fullWidth" type="text" formControlName="aprobacion_jefatura" [(ngModel)]="datos_solicitud.aprobacion_jefatura" readonly>
+
+
+            </div>
+
+            <div class="column  is-one-fifth">
+              <label class="label">Fecha Aprobación Jefatura</label>
+            </div>
+
+            <div class="column  is-one-fifth">
+                  <input class="input is-link is-fullWidth" type="text"  readonly
+                  formControlName="fecha_aprob_jefe_format" [(ngModel)]="datos_solicitud.fecha_aprob_jefe_format">
+            </div>
+
+
+          </div>
+
+
+          <div class="columns" *ngIf="(datos_solicitud.estado > 2)">
+
+
+            <div class="column  is-one-fifth">
+              <label class="label">Aprobación Encar. Mtto.</label>
+            </div>
+
+            <div class="column  is-one-fifth">
+                  <input class="input is-link is-fullWidth" type="text"  readonly
+                  formControlName="aprobacion_mtto" [(ngModel)]="datos_solicitud.aprobacion_mtto">
+            </div>
+
+            <div class="column is-one-fifth">
+              <label class="label">Fecha Aprobación Encar. Mtto.</label>
+
+            </div>
+
+            <div class="column  is-one-fifth">
+                  <input class="input is-link fullWidth" type="text" formControlName="fecha_aprob_mtto_format" [(ngModel)]="datos_solicitud.fecha_aprob_mtto_format" readonly>
+
+
+            </div>
+
+
+
+          </div>
+
+          <div class="columns" *ngIf="(datos_solicitud.estado > 3 )">
+
+            <div class="column  is-one-fifth">
+              <label class="label">Usuario finalización</label>
+            </div>
+
+            <div class="column  is-one-fifth">
+                  <input class="input is-link is-fullWidth" type="text"  readonly
+                  formControlName="usuario_finalizacion" [(ngModel)]="datos_solicitud.usuario_finalizacion">
+            </div>
+
+            <div class="column  is-one-fifth">
+              <label class="label">Fecha de finalización</label>
+            </div>
+
+            <div class="column  is-one-fifth">
+                  <input class="input is-link is-fullWidth" type="text"  readonly
+                  formControlName="fecha_finalizacion_format" [(ngModel)]="datos_solicitud.fecha_finalizacion_format">
+            </div>
+
+
+          </div>
+
+          <div class="columns">
+            <div class="column is-one-fifth" *ngIf="(datos_solicitud.estado == 3 || datos_solicitud.estado == 4)">
+              <label class="label">Observaciones finales</label>
+            </div>
+            <div class="column is-half" *ngIf="(datos_solicitud.estado == 3 || datos_solicitud.estado == 4)">
+              <textarea class="textarea is-link" placeholder="Observaciones finales" [(ngModel)]="datos_solicitud.observaciones_finales"
+              formControlName="observaciones_finales"></textarea>
+            </div>
+          </div>
+
+
+          <div class="field" style="width: 90% !important;margin: auto;margin-bottom: 20px !important">
+            <p class="control">
+
+
+            </p>
+          </div>
+
+        </form>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-danger is-medium" (click)="showListadoAdmin()" *ngIf="user.rol != 'Solicitante'">
+          Cerrar
+        </button>
+        <button class="button is-danger is-medium" (click)="showListadoMis()" *ngIf="user.rol =='Solicitante'">
+          Cerrar
+        </button>
+
+        <button class="button is-link is-medium" (click)="aprobarSolicitudJefe()" *ngIf="(user.id == datos_solicitud.jefe) && (datos_solicitud.estado == 1)">
+          Aprobar por jefatura
+        </button>
+
+        <button class="button is-link is-medium" (click)="aprobarSolicitudMtto()"
+        *ngIf="(user.rol =='Administrador' || user.rol =='Encargado de mantenimiento')  && (datos_solicitud.estado == 2)">
+          Aprobar por encargado de mtto.
+        </button>
+
+
+        <button class="button is-link is-medium" (click)="finalizarSolicitud()"
+        *ngIf="(datos_solicitud.estado == 3) && (user.rol =='Administrador' || user.rol =='Encargado de mantenimiento' || datos_solicitud.id_solicitante == user.id)">
+          Finalizar solicitud
+        </button>
+
+
+      </footer>
+    </div>
+  </div>
+

@@ -41,4 +41,8 @@ export class TemplateComponent implements OnInit {
   nueva_solicitud(){
     this.router.navigate(['dashboard/n_solicitud']);
   }
+
+  contratos(){
+    this.router.navigate(['dashboard/contratos']);
+  }
 }

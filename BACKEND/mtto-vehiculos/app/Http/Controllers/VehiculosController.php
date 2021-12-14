@@ -15,9 +15,8 @@ class VehiculosController extends Controller
     public function getVehiculos(){
         $vehiculos = 
         DB::connection('comanda')->select("select vv.*, u.nombre +' '+u.apellido  as dueno 
-        from vh_vehiculos vv
-        inner join vehiculos_dueños vd on vd.vh_vehiculo_id  = vv.id 
-        inner JOIN users u on u.id = vd.user_id 
+        from vh_vehiculos vv 
+        inner JOIN users u on u.id = vv.dueño 
         order by 2	desc
         ");
 
