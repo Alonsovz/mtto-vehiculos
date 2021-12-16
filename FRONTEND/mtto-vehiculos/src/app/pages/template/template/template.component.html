@@ -37,12 +37,7 @@
             </div>
           </div>
 
-        </div>
-
-
-        <div class="columns" style="margin-top: 25px !important;"
-        *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
-          <div class="column">
+          <div class="column" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
             <div class="card card-body">
               <header class="cardheader"><br>
                 Vehículos
@@ -56,6 +51,13 @@
               </div>
             </div>
           </div>
+
+        </div>
+
+
+        <div class="columns" style="margin-top: 25px !important;"
+        *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+
 
           <div class="column" *ngIf="user.rol =='Administrador'">
             <div class="card card-body">
@@ -105,6 +107,22 @@
             </div>
           </div>
 
+
+          <div class="column" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
+            <div class="card card-body">
+              <header class="cardheader"><br>
+                Talleres
+              </header>
+              <div class="card-content">
+                <img src="./assets/img/mechanic.png">
+
+                <button class="button is-link is-light is-small go" (click)="goTalleres()">
+                  <img src="./assets/img/right-arrow.png">
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
 
 
@@ -148,9 +166,7 @@
 
 
       </div>
-      <div class="column">
-        <img src="./assets/img/dashboard6.PNG" class="bigImg">
-      </div>
+
     </div>
 
 

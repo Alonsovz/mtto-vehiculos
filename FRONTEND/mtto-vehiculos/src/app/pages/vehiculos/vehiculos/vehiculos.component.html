@@ -8,26 +8,7 @@
       </p>
     </div>
 
-    <!--<div class="column is-one-third">
-      <div class="field has-addons btnAlign">
-        <p class="control">
-          <button class="button btnGroup" (click)="showListado()">
-            <span class="icon is-small">
-              <img src="./assets/img/completed-task.png">
-            </span>
-            <span>Ver Listado</span>
-          </button>
-        </p>
-        <p class="control">
-          <button class="button btnGroup" (click)="showCardAgregar()">
-            <span class="icon is-small">
-              <img src="./assets/img/add.png">
-            </span>
-            <span>Agregar nuevo usuario</span>
-          </button>
-        </p>
-      </div>
-    </div>-->
+
 
   </div>
 
@@ -80,6 +61,9 @@
           <th>Placa</th>
           <th>Grupo</th>
           <th>Dueño</th>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>Año</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -89,13 +73,13 @@
           <td>{{vh.placa}}</td>
           <td>{{vh.grupo}}</td>
           <td>{{vh.dueno}}</td>
+          <td>{{vh.marca}}</td>
+          <td>{{vh.modelo}}</td>
+          <td>{{vh.anio}}</td>
 
           <td>
             <button class="button is-primary is-small is-light btn1">
-              <img src="./assets/img/editar.png" >
-            </button>
-            <button class="button is-danger is-small is-light btn">
-              <img src="./assets/img/trash.png" >
+              <img src="./assets/img/editar.png" (click)="editarVehiculo(vh)">
             </button>
           </td>
         </tr>
@@ -104,4 +88,115 @@
 
   </div>
 
+</div>
+
+
+<div class="card card-body addCard" style="top: -20px !important;" *ngIf="showCardEdit">
+  <div class="card-content">
+
+    <div class="columns">
+      <div class="column is-full">
+        <h2 class="titulo">Editar Vehiculo</h2>
+      </div>
+
+    </div>
+
+    <form [formGroup]="frm_vehiculo">
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <label class="label">Número de vehiculo</label>
+        </div>
+        <div class="column is-one-third">
+          <input class="input is-link" type="text" placeholder="N° Vehiculo" [(ngModel)]="datos_vehiculo.numeracion" formControlName="numeracion">
+
+          <input class="input is-link" type="hidden"  [(ngModel)]="datos_vehiculo.id" formControlName="id">
+        </div>
+
+
+        <div class="column is-one-fifth">
+          <label class="label">Placa</label>
+        </div>
+
+        <div class="column is-one-third">
+              <input class="input is-link" type="text" placeholder="Placa"  formControlName="placa" [(ngModel)]="datos_vehiculo.placa">
+        </div>
+
+
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <label class="label">Responsable</label>
+        </div>
+        <div class="column is-one-third">
+          <div class="select inputSelect">
+            <select class="inputSelect" formControlName="usuario" [(ngModel)]="datos_vehiculo.id_dueno">
+              <option selected value="">Seleccione</option>
+              <option *ngFor="let user of listUsuarios" value="{{user.id}}">{{user.nombre}}</option>
+            </select>
+          </div>
+        </div>
+
+
+        <div class="column is-one-fifth">
+          <label class="label">Marca</label>
+        </div>
+
+        <div class="column is-one-third">
+              <input class="input is-link" type="text" placeholder="Marca" [(ngModel)]="datos_vehiculo.marca"
+              formControlName="marca">
+        </div>
+
+
+      </div>
+
+
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <label class="label">Modelo</label>
+        </div>
+        <div class="column is-one-third">
+          <input class="input is-link" type="text" placeholder="Modelo" [(ngModel)]="datos_vehiculo.modelo"
+          formControlName="modelo">
+        </div>
+
+
+        <div class="column is-one-fifth">
+          <label class="label">Año</label>
+        </div>
+
+        <div class="column is-one-third">
+              <input class="input is-link" type="text" placeholder="Año" [(ngModel)]="datos_vehiculo.anio"
+              formControlName="anio">
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <label class="label">Taller</label>
+        </div>
+
+        <div class="column is-one-third">
+              <input class="input is-link" type="text" placeholder="Taller" [(ngModel)]="datos_vehiculo.taller"
+              formControlName="taller">
+        </div>
+
+      </div>
+      <br><br>
+      <div class="field">
+        <p class="control">
+          <button class="button is-link is-fullwidth"
+          (click)="guardarEdicion()">
+            Guardar modificaciones
+          </button>
+          <br>
+          <button class="button is-link is-light is-fullwidth" (click)="showListado()">
+            Cancelar
+          </button>
+        </p>
+      </div>
+    </form>
+
+
+  </div>
 </div>

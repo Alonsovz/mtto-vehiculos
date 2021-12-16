@@ -22,7 +22,7 @@ class SolicitudController extends Controller
         $km_actual   = $request["km_actual"];
         $tipo_mantenimiento  = $request["tipo_mantenimiento"];
         $observaciones  = $request["observaciones"];
-
+        $n_contrato  = $request["n_contrato"];
         if(is_null($fecha_solicitud)){
             $fechaSolicitud = null;
         }else{
@@ -33,8 +33,8 @@ class SolicitudController extends Controller
         
 
 
-        $insertar =  DB::connection('comanda')->table('mtto_vh_solictud')
-        ->insert([
+        $insertar =  DB::connection('comanda')->table('mtto_vh_solicitud')
+        ->insertGetId([
             'fecha_solicitud' => $fechaSolicitud,
             'dias_estimados' => $dias_estimados,
             'id_solicitante' => $id_solicitante,
@@ -45,11 +45,39 @@ class SolicitudController extends Controller
             'observaciones' => $observaciones,
             'estado' => 1,
             'idEliminado' => 1,
+            'n_contrato' => $n_contrato,
         ]);
 
         return response()->json($insertar);
     }
 
+
+    public function guardar_detalle_soli(Request $request){
+        $json = json_encode($request->all());
+
+        $det = json_decode($json);
+        
+        $insertar = '';
+
+        foreach($det as $dt){
+            $insertar =  DB::connection('comanda')->table('mtto_detalle_mtto')
+            ->insertGetId([
+                'id_solicitud' => $dt->id_solicitud,
+                'detalle_realizado' => $dt->detalles_mtto,
+            ]);
+        }
+       
+
+        return response()->json($insertar);
+    }
+
+
+    public function get_detalle_soli(Request $request){
+        $solicitudes = DB::connection('comanda')->select("SELECT *,
+        str(precio,12,2) as precio_format from mtto_detalle_mtto where id_solicitud = ".$request["id"]."");
+
+        return response()->json($solicitudes);
+    }
 
     //metodo para obtener arreglo  de solicitudes ingresadas
     public function getSolicitudes_Ing(Request $request){
@@ -71,7 +99,7 @@ class SolicitudController extends Controller
         substring(convert(varchar,mvs.fecha_finalizacion, 114),1,5))
          as fecha_finalizacion_format
 
-        from mtto_vh_solictud mvs 
+        from mtto_vh_solicitud mvs 
         inner join mtto_vh_estado_soli mves on mves.id = mvs.estado 
         inner join users u on u.id = mvs.id_solicitante 
         inner join vh_vehiculos vv on vv.id = mvs.id_vehiculo 
@@ -100,7 +128,7 @@ class SolicitudController extends Controller
          CONCAT(convert(varchar, mvs.fecha_finalizacion, 103), ' ',
         substring(convert(varchar,mvs.fecha_finalizacion, 114),1,5))
          as fecha_finalizacion_format
-        from mtto_vh_solictud mvs 
+        from mtto_vh_solicitud mvs 
         inner join mtto_vh_estado_soli mves on mves.id = mvs.estado 
         inner join users u on u.id = mvs.id_solicitante 
         inner join vh_vehiculos vv on vv.id = mvs.id_vehiculo 
@@ -128,12 +156,14 @@ class SolicitudController extends Controller
 
          CONCAT(convert(varchar, mvs.fecha_finalizacion, 103), ' ',
         substring(convert(varchar,mvs.fecha_finalizacion, 114),1,5))
-         as fecha_finalizacion_format
-        from mtto_vh_solictud mvs 
+        as fecha_finalizacion_format,
+         mt.nombre as taller
+        from mtto_vh_solicitud mvs 
         inner join mtto_vh_estado_soli mves on mves.id = mvs.estado 
         inner join users u on u.id = mvs.id_solicitante 
         inner join vh_vehiculos vv on vv.id = mvs.id_vehiculo 
         inner join departamentos_edesal de on de.id = u.departamento_id 
+        left join mtto_talleres mt on mt.id = mvs.id_taller
         where mvs.idEliminado = 1 and mvs.estado = 3");
 
         return response()->json($solicitudes);
@@ -157,12 +187,14 @@ class SolicitudController extends Controller
 
          CONCAT(convert(varchar, mvs.fecha_finalizacion, 103), ' ',
         substring(convert(varchar,mvs.fecha_finalizacion, 114),1,5))
-         as fecha_finalizacion_format
-        from mtto_vh_solictud mvs 
+        as fecha_finalizacion_format,
+         mt.nombre as taller
+        from mtto_vh_solicitud mvs 
         inner join mtto_vh_estado_soli mves on mves.id = mvs.estado 
         inner join users u on u.id = mvs.id_solicitante 
         inner join vh_vehiculos vv on vv.id = mvs.id_vehiculo 
         inner join departamentos_edesal de on de.id = u.departamento_id 
+        left join mtto_talleres mt on mt.id = mvs.id_taller
         where mvs.idEliminado = 1 and mvs.estado = 4");
 
         return response()->json($solicitudes);
@@ -189,7 +221,7 @@ class SolicitudController extends Controller
          CONCAT(convert(varchar, mvs.fecha_finalizacion, 103), ' ',
         substring(convert(varchar,mvs.fecha_finalizacion, 114),1,5))
          as fecha_finalizacion_format
-        from mtto_vh_solictud mvs 
+        from mtto_vh_solicitud mvs 
         inner join mtto_vh_estado_soli mves on mves.id = mvs.estado 
         inner join users u on u.id = mvs.id_solicitante 
         inner join vh_vehiculos vv on vv.id = mvs.id_vehiculo 
@@ -220,7 +252,7 @@ class SolicitudController extends Controller
          CONCAT(convert(varchar, mvs.fecha_finalizacion, 103), ' ',
         substring(convert(varchar,mvs.fecha_finalizacion, 114),1,5))
          as fecha_finalizacion_format
-        from mtto_vh_solictud mvs 
+        from mtto_vh_solicitud mvs 
         inner join mtto_vh_estado_soli mves on mves.id = mvs.estado 
         inner join users u on u.id = mvs.id_solicitante 
         inner join vh_vehiculos vv on vv.id = mvs.id_vehiculo 
@@ -250,12 +282,14 @@ class SolicitudController extends Controller
 
          CONCAT(convert(varchar, mvs.fecha_finalizacion, 103), ' ',
         substring(convert(varchar,mvs.fecha_finalizacion, 114),1,5))
-         as fecha_finalizacion_format
-        from mtto_vh_solictud mvs 
+         as fecha_finalizacion_format,
+         mt.nombre as taller
+        from mtto_vh_solicitud mvs 
         inner join mtto_vh_estado_soli mves on mves.id = mvs.estado 
         inner join users u on u.id = mvs.id_solicitante 
         inner join vh_vehiculos vv on vv.id = mvs.id_vehiculo 
         inner join departamentos_edesal de on de.id = u.departamento_id 
+        left join mtto_talleres mt on mt.id = mvs.id_taller
         where mvs.idEliminado = 1 and mvs.estado = 3 and mvs.id_solicitante = ". $usuario." ");
 
         return response()->json($solicitudes);
@@ -281,13 +315,14 @@ class SolicitudController extends Controller
 
          CONCAT(convert(varchar, mvs.fecha_finalizacion, 103), ' ',
         substring(convert(varchar,mvs.fecha_finalizacion, 114),1,5))
-         as fecha_finalizacion_format
-
-        from mtto_vh_solictud mvs 
+        as fecha_finalizacion_format,
+         mt.nombre as taller
+        from mtto_vh_solicitud mvs 
         inner join mtto_vh_estado_soli mves on mves.id = mvs.estado 
         inner join users u on u.id = mvs.id_solicitante 
         inner join vh_vehiculos vv on vv.id = mvs.id_vehiculo 
         inner join departamentos_edesal de on de.id = u.departamento_id 
+        left join mtto_talleres mt on mt.id = mvs.id_taller
         where mvs.idEliminado = 1 and mvs.estado = 4 and mvs.id_solicitante = ". $usuario." ");
 
         return response()->json($solicitudes);
@@ -295,12 +330,13 @@ class SolicitudController extends Controller
 
     public function aprobarSolicitudJefe(Request $request){
         
-        $editar =  DB::connection('comanda')->table('mtto_vh_solictud')
+        $editar =  DB::connection('comanda')->table('mtto_vh_solicitud')
         ->where('id', $request['id'])
              ->update([
                 'estado' => 2,
                 'aprobacion_jefatura' => $request['aprobacion_jefatura'],
                 'fecha_aprob_jefe' => date('Ymd H:i'),
+                
                 ]);
 
         return response()->json($editar);
@@ -308,12 +344,13 @@ class SolicitudController extends Controller
 
     public function aprobarSolicitudMtto(Request $request){
         
-        $editar =  DB::connection('comanda')->table('mtto_vh_solictud')
+        $editar =  DB::connection('comanda')->table('mtto_vh_solicitud')
         ->where('id', $request['id'])
              ->update([
                 'estado' => 3,
                 'aprobacion_mtto' => $request['aprobacion_mtto'],
                 'fecha_aprob_mtto' => date('Ymd H:i'),
+                'id_taller' => $request['id_taller'],
                 ]);
 
         return response()->json($editar);
@@ -322,7 +359,7 @@ class SolicitudController extends Controller
 
     public function finalizarSolicitud(Request $request){
         
-        $editar =  DB::connection('comanda')->table('mtto_vh_solictud')
+        $editar =  DB::connection('comanda')->table('mtto_vh_solicitud')
         ->where('id', $request['id'])
              ->update([
                 'estado' => 4,
@@ -349,20 +386,20 @@ class SolicitudController extends Controller
     public function getConteoAdmin(){
        
         $conteo = DB::connection('comanda')->select("SELECT
-        (select count(id) from mtto_vh_solictud mvs where mvs.idEliminado = 1 and mvs.estado = 1) as conteoIng ,
-        (select count(id) from mtto_vh_solictud mvs where mvs.idEliminado = 1 and mvs.estado = 2) as conteoApJ ,
-        (select count(id) from mtto_vh_solictud mvs where mvs.idEliminado = 1 and mvs.estado = 3) as conteoApM ,
-        (select count(id) from mtto_vh_solictud mvs where mvs.idEliminado = 1 and mvs.estado = 4) as conteoF ");
+        (select count(id) from mtto_vh_solicitud mvs where mvs.idEliminado = 1 and mvs.estado = 1) as conteoIng ,
+        (select count(id) from mtto_vh_solicitud mvs where mvs.idEliminado = 1 and mvs.estado = 2) as conteoApJ ,
+        (select count(id) from mtto_vh_solicitud mvs where mvs.idEliminado = 1 and mvs.estado = 3) as conteoApM ,
+        (select count(id) from mtto_vh_solicitud mvs where mvs.idEliminado = 1 and mvs.estado = 4) as conteoF ");
 
         return response()->json($conteo);
     }
 
     public function getConteoUser(Request $request){
         $conteo = DB::connection('comanda')->select("SELECT
-        (select count(id) from mtto_vh_solictud mvs where mvs.idEliminado = 1 and mvs.estado = 1 and mvs.id_solicitante = ".$request["id"].") as conteoIng ,
-        (select count(id) from mtto_vh_solictud mvs where mvs.idEliminado = 1 and mvs.estado = 2 and mvs.id_solicitante = ".$request["id"].") as conteoApJ ,
-        (select count(id) from mtto_vh_solictud mvs where mvs.idEliminado = 1 and mvs.estado = 3 and mvs.id_solicitante = ".$request["id"].") as conteoApM ,
-        (select count(id) from mtto_vh_solictud mvs where mvs.idEliminado = 1 and mvs.estado = 4 and mvs.id_solicitante = ".$request["id"].") as conteoF ");
+        (select count(id) from mtto_vh_solicitud mvs where mvs.idEliminado = 1 and mvs.estado = 1 and mvs.id_solicitante = ".$request["id"].") as conteoIng ,
+        (select count(id) from mtto_vh_solicitud mvs where mvs.idEliminado = 1 and mvs.estado = 2 and mvs.id_solicitante = ".$request["id"].") as conteoApJ ,
+        (select count(id) from mtto_vh_solicitud mvs where mvs.idEliminado = 1 and mvs.estado = 3 and mvs.id_solicitante = ".$request["id"].") as conteoApM ,
+        (select count(id) from mtto_vh_solicitud mvs where mvs.idEliminado = 1 and mvs.estado = 4 and mvs.id_solicitante = ".$request["id"].") as conteoF ");
 
         return response()->json($conteo);
     }
@@ -377,6 +414,17 @@ class SolicitudController extends Controller
         return response()->json($getTipoMtto);
     }
     
+
+    public function guardarPrecioMtto(Request $request){
+        
+     
+        $editar = DB::connection('comanda')->table('mtto_detalle_mtto')->where('id', $request["id"])
+        ->update([
+            'precio' => $request["precio"] ,
+        ]);
+
+        return response()->json($editar);
+    }
 
 }
 

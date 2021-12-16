@@ -134,18 +134,80 @@
           </div>
         </div>
 
+
+
+
+      </div>
+
+
+      <div class="columns">
+
         <div class="column is-one-fifth" *ngIf="tipo_mtto != null">
-              <label class="label">Detalle del mtto</label>
+          <label class="label">Detalle del mtto</label>
         </div>
 
-        <div class="column is-two-fifths" *ngIf="tipo_mtto != null">
+        <div class="column is-one-third" *ngIf="tipo_mtto != null">
           <div class="select inputSelect is-link">
-            <select class="inputSelect is-link" formControlName="detalles_mtto">
+            <select class="inputSelect is-link" formControlName="detalles_mtto" (ngModelChange)="getTipoContrato()">
               <option set selected value="0">Selecciona</option>
-              <option *ngFor="let dt of tipo_mtto" value="{{dt.id}}">{{dt.nombre}}</option>
+              <option *ngFor="let dt of tipo_mtto" value="{{dt.nombre}}">{{dt.nombre}}</option>
             </select>
+
           </div>
+
+
         </div>
+
+        <div class="column is-one-fifth" *ngIf="tipo_mtto != null && validar_lista">
+          <button class="button is-success is-light" (click)="addDetalle()">
+            <img src="./assets/img/plus.png" >
+          </button>
+        </div>
+
+        <div class="column is-one-quarter"  *ngIf="lista_mttos.length > 0 && validar_lista">
+            <table>
+              <thead>
+                <tr>
+                  <th>Detalle</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let dt of lista_mttos; index as indexOfelement;">
+                  <td>{{dt.detalles_mtto}}</td>
+                  <td>&nbsp;&nbsp;
+                    <button class="button is-small is-danger is-light" (click)="eliminarDetalle(indexOfelement)">
+                      <img src="./assets/img/trash.png" >
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+        </div>
+
+
+          <div class="column" *ngFor="let dt of detalle_contrato">
+            <label class="label">Agencia de contrato</label>
+          </div>
+
+          <div class="column" *ngFor="let dt of detalle_contrato">
+            <input class="input is-link" type="text" placeholder="N° de Contrato" readonly [(ngModel)]="dt.nombre_agencia"
+            formControlName="agencia">
+          </div>
+
+          <div class="column" *ngFor="let dt of detalle_contrato">
+            <label class="label">N° de Contrato</label>
+          </div>
+
+          <div class="column" *ngFor="let dt of detalle_contrato">
+            <input class="input is-link" type="text" placeholder="N° de Contrato"
+            formControlName="n_contrato" readonly [(ngModel)]="dt.n_contrato">
+          </div>
+
+          <div class="column" *ngIf="detalle_contrato.length === 0 && validar_contrato">
+            <label class="label">El vehículo no posee contrato activo</label>
+          </div>
 
       </div>
 

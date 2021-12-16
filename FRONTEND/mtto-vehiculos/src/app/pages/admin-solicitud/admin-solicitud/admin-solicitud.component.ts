@@ -3,10 +3,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AdminSolicitud } from 'src/app/models/admin-solicitud';
+import { DetalleMtto } from 'src/app/models/detalle-mtto';
 import { NSolicitud } from 'src/app/models/n-solicitud';
+import { Talleres } from 'src/app/models/talleres';
 import { Usuario } from 'src/app/models/usuario';
 import { Vehiculos } from 'src/app/models/vehiculos';
 import { AdminSolicitudService } from 'src/app/services/admin-solicitud.service';
+import { TalleresService } from 'src/app/services/talleres.service';
 import { VehiculosService } from 'src/app/services/vehiculos.service';
 
 @Component({
@@ -38,8 +41,12 @@ export class AdminSolicitudComponent implements OnInit {
   isModalActive = false;
   conteoAdmin : any;
   conteoUser : any;
+  detalle_soli: DetalleMtto[] = [];
+  objTalleres: Talleres[];
+  detalle_mtto_form: FormGroup;
   constructor(private router: Router,private crf: ChangeDetectorRef,private vehiculo: VehiculosService,
-    private soliService: AdminSolicitudService, private toastr: ToastrService) {
+    private soliService: AdminSolicitudService, private toastr: ToastrService,
+    private taller_service: TalleresService, private cdRef:ChangeDetectorRef) {
       this.n_solicitud_form = new FormGroup({
         'nombreSolicitante': new FormControl('',[Validators.required]),
         'departamento': new FormControl('',[Validators.required]),
@@ -59,6 +66,12 @@ export class AdminSolicitudComponent implements OnInit {
         'fecha_aprob_mtto_format': new FormControl('',[Validators.required]),
         'fecha_finalizacion_format': new FormControl('',[Validators.required]),
         'usuario_finalizacion': new FormControl('',[Validators.required]),
+        'taller': new FormControl('0',[Validators.required]),
+      });
+
+      this.detalle_mtto_form= new FormGroup({
+        'id': new FormControl('',[Validators.required]),
+        'precio': new FormControl('',[Validators.required]),
       });
     }
 
@@ -79,11 +92,22 @@ export class AdminSolicitudComponent implements OnInit {
         data => {
           this.objVehiculos = data;
         });
+
+        this.taller_service.getTalleres_list().subscribe(
+          data => {
+            this.objTalleres = data;
+          });
   }else{
     this.router.navigate(['login']);
   }
 
   }
+
+  ngAfterViewChecked()
+{
+
+  this.cdRef.detectChanges();
+}
 
 
   public getConteoAdmin(){
@@ -109,6 +133,7 @@ export class AdminSolicitudComponent implements OnInit {
 
 //función para obtener desde el servicio el listado de solicitudes con estado "Ingresada"
   getSoli_ing(){
+
     this.showIng = false;
   this.soliService.getSolicitudes_Ing().subscribe(
     data => {
@@ -225,7 +250,6 @@ export class AdminSolicitudComponent implements OnInit {
   getMisSoli_ing(){
     let datos : Usuario = new Usuario();
     datos = this.user;
-
     this.showIng = false;
 
     this.soliService.getMisSolicitudes_Ing(datos).subscribe(
@@ -244,7 +268,6 @@ export class AdminSolicitudComponent implements OnInit {
   getMisSolicitudes_AproJefe(){
     let datos : Usuario = new Usuario();
     datos = this.user;
-
     this.showIng = false;
 
     this.soliService.getMisSolicitudes_AproJefe(datos).subscribe(
@@ -264,7 +287,6 @@ export class AdminSolicitudComponent implements OnInit {
   getMisSolicitudes_AproMtto(){
     let datos : Usuario = new Usuario();
     datos = this.user;
-
     this.showIng = false;
 
     this.soliService.getMisSolicitudes_AproMtto(datos).subscribe(
@@ -283,7 +305,6 @@ export class AdminSolicitudComponent implements OnInit {
   getMisSolicitudes_Fin(){
     let datos : Usuario = new Usuario();
     datos = this.user;
-
     this.showIng = false;
 
     this.soliService.getMisSolicitudes_Fin(datos).subscribe(
@@ -302,10 +323,22 @@ export class AdminSolicitudComponent implements OnInit {
 
   verDetalleSoli(solicitud: NSolicitud){
 
-    var modalDlg = document.querySelector('#modalSolicitud');
-    modalDlg.classList.add('is-active');
+
 
     this.datos_solicitud = solicitud;
+
+    this.soliService.get_detalle_soli(solicitud).subscribe(
+      response => {
+        this.detalle_soli = response;
+      },
+      err => {
+
+      },
+      () => {
+        var modalDlg = document.querySelector('#modalSolicitud');
+        modalDlg.classList.add('is-active');
+      },
+    );
   }
 
   showListadoMis(){
@@ -344,6 +377,8 @@ export class AdminSolicitudComponent implements OnInit {
       },
       () => {
           this.toastr.success('Éxito','Solicitud aprobada con éxito');
+          this.getConteoAdmin();
+          this.getConteoUser();
       },
     );
 
@@ -356,6 +391,7 @@ export class AdminSolicitudComponent implements OnInit {
 
     datos.id = this.datos_solicitud.id;
     datos.aprobacion_mtto = this.user.alias;
+    datos.id_taller = this.n_solicitud_form.controls["taller"].value;
 
     console.log(datos);
     this.soliService.aprobarSolicitudMtto(datos).subscribe(
@@ -366,6 +402,8 @@ export class AdminSolicitudComponent implements OnInit {
       },
       () => {
           this.toastr.success('Éxito','Solicitud aprobada con éxito');
+          this.getConteoAdmin();
+          this.getConteoUser();
       },
     );
 
@@ -390,10 +428,31 @@ export class AdminSolicitudComponent implements OnInit {
       },
       () => {
           this.toastr.success('Éxito','Solicitud aprobada con éxito');
+          this.getConteoAdmin();
+          this.getConteoUser();
       },
     );
 
   }
 
+
+  guardarPrecio(dt: DetalleMtto){
+    let datos : DetalleMtto = new DetalleMtto();
+
+    datos = dt;
+    datos.precio = this.detalle_mtto_form.controls["precio"].value;
+
+    this.soliService.guardarPrecioMtto(datos).subscribe(
+      response => {
+      },
+      err => {
+        this.toastr.error('Error','Error al guardar datos');
+      },
+      () => {
+          this.toastr.success('Éxito','Precio guardado');
+
+      },
+    );
+  }
 
 }

@@ -25,4 +25,9 @@ export class VehiculosService {
    public getVehiculos(): Observable<Vehiculos[]> {
     return this.http.get(this.globalservice.getUrlBackEnd() + 'getVehiculos').pipe(map(data => data as Vehiculos[]));
   }
+
+  public editarVehiculo(dt: Vehiculos): Observable<Vehiculos> {
+    return this.http.post<Vehiculos>(this.globalservice.getUrlBackEnd() + 'editarVehiculo', dt, httpOptions)
+    .pipe(map(data => data as Vehiculos ));
+  }
 }

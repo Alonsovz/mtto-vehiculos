@@ -23,4 +23,5 @@ public fechaSoli : string;
 public solicitante : string;
 public jefe : number;
 public fecha_finalizacion_format : string;
+public id_taller : string;
 }

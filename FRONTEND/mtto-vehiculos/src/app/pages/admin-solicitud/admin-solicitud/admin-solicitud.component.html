@@ -503,20 +503,84 @@
                 <input type="radio" name="tipo_mantenimiento" value="Preventivo" formControlName="tipo_mantenimiento" [(ngModel)]="datos_solicitud.tipo_mantenimiento" readonly>
                 Preventivo
               </label>
-              </div>
-
-              <div class="column is-one-fifth">
-                <label class="label">Observaciones adicionales</label>
-              </div>
-
-              <div class="column is-half">
-                <textarea class="textarea is-link" placeholder="Observaciones adicionales" [(ngModel)]="datos_solicitud.observaciones" readonly
-                formControlName="observaciones"></textarea>
-              </div>
+            </div>
 
 
 
           </div>
+
+          <div class="column"  style="width: 80% !important; margin: auto !important;">
+
+            <form [formGroup]="detalle_mtto_form">
+              <div *ngIf="detalle_soli.length > 0">
+                <div class="columns" *ngFor="let dt of detalle_soli">
+                  <div class="column is-one-third" *ngIf="(datos_solicitud.estado  == 3)">
+                    <ul style="list-style-type: circle;" >
+                      <li >
+                          {{dt.detalle_realizado}}
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="column is-half" *ngIf="(datos_solicitud.estado  == 4)">
+                    <ul style="list-style-type: circle;">
+                      <li >
+                          {{dt.detalle_realizado}} ---
+                          <b> $ {{dt.precio_format}}</b>
+                      </li>
+                    </ul>
+
+                  </div>
+
+                  <div class="column is-one-third" *ngIf="(datos_solicitud.estado  == 3) &&
+                    (user.rol =='Administrador' || user.rol =='Encargado de mantenimiento')">
+                    <input class="input is-link" type="text" formControlName="precio" placeholder="Precio">
+                  </div>
+
+                  <div *ngIf="(datos_solicitud.estado  == 3) &&
+                    (user.rol =='Administrador' || user.rol =='Encargado de mantenimiento')">
+                    <button style="margin-top: 15px !important; " class="button is-link is-small" (click)="guardarPrecio(dt)">Guardar</button>
+                  </div>
+
+
+
+                </div>
+
+              </div>
+            </form>
+          </div>
+
+          <br>
+          <div class="columns">
+            <div class="column is-one-fifth">
+              <label class="label">Taller</label>
+            </div>
+
+            <div class="column is-half">
+              <div class="control inputSelect">
+                <div class="select inputSelect is-link">
+                  <select class="inputSelect is-link" formControlName="taller" [(ngModel)]="datos_solicitud.id_taller">
+                    <option selected value="0">Selecciona el taller</option>
+                    <option *ngFor="let vh of objTalleres" value="{{vh.id}}">{{vh.nombre}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="columns">
+            <div class="column is-one-fifth">
+              <label class="label">Observaciones adicionales</label>
+            </div>
+
+            <div class="column is-half">
+              <textarea class="textarea is-link" placeholder="Observaciones adicionales" [(ngModel)]="datos_solicitud.observaciones" readonly
+              formControlName="observaciones"></textarea>
+            </div>
+          </div>
+
+
 
 
           <div class="columns" *ngIf="(datos_solicitud.estado >= 1)">

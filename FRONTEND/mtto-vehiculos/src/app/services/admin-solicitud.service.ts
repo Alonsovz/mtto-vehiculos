@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AdminSolicitud } from '../models/admin-solicitud';
+import { DetalleMtto } from '../models/detalle-mtto';
 import { NSolicitud } from '../models/n-solicitud';
 import { Usuario } from '../models/usuario';
 import { GlobalService } from './global.service';
@@ -92,6 +93,16 @@ export class AdminSolicitudService {
     public getConteoUser(usuario: Usuario): Observable<AdminSolicitud[]> {
       return this.http.post<AdminSolicitud[]>(this.globalservice.getUrlBackEnd() + 'getConteoUser', usuario, httpOptions)
       .pipe(map(data => data as AdminSolicitud[] ));
+    }
+
+    public get_detalle_soli(data: NSolicitud): Observable<DetalleMtto[]> {
+      return this.http.post<DetalleMtto[]>(this.globalservice.getUrlBackEnd() + 'get_detalle_soli', data, httpOptions)
+      .pipe(map(data => data as DetalleMtto[] ));
+    }
+
+    public guardarPrecioMtto(data: DetalleMtto): Observable<DetalleMtto> {
+      return this.http.post<DetalleMtto>(this.globalservice.getUrlBackEnd() + 'guardarPrecioMtto', data, httpOptions)
+      .pipe(map(data => data as DetalleMtto));
     }
 
 

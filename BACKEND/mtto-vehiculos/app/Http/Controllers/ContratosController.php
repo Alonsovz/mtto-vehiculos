@@ -49,6 +49,15 @@ class ContratosController extends Controller
 
         return response()->json($editar);
     }
+
+
+    public function getNContratoByVehiculo(Request $request){
+        $getContratos = 
+        DB::connection('comanda')->select("SELECT * from mtto_contratos_vehiculos  where vehiculo_id = ".$request["id_vehiculo"]."
+        and estado_contrato = 'Activo' ");
+
+        return response()->json($getContratos);
+    }
 }
 
 

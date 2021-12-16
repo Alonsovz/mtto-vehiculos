@@ -49,7 +49,9 @@ export class UsuarioService {
     public getUsuarios(): Observable<Usuario[]> {
       return this.http.get(this.globalservice.getUrlBackEnd() + 'getUsuarios').pipe(map(data => data as Usuario[]));
     }
-
+    public getUsuariosVh(): Observable<Usuario[]> {
+      return this.http.get(this.globalservice.getUrlBackEnd() + 'getUsuariosVh').pipe(map(data => data as Usuario[]));
+    }
 
     //metodo para obtener objeto de datos para tabla
    public getRoles(): Observable<Rol[]> {

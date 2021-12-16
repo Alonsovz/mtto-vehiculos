@@ -5,6 +5,7 @@ import { GlobalService } from './global.service';
 import { Router } from '@angular/router';
 import {Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Vehiculos } from '../models/vehiculos';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -35,6 +36,11 @@ export class ContratoServiceService {
 public eliminarContrato(datos: Contratos): Observable<Contratos> {
   return this.http.post<Contratos>(this.globalservice.getUrlBackEnd() + 'eliminarContrato', datos, httpOptions)
   .pipe(map(data => data as Contratos ));
+}
+
+public getNContratoByVehiculo(datos: Vehiculos): Observable<Contratos[]> {
+  return this.http.post<Contratos[]>(this.globalservice.getUrlBackEnd() + 'getNContratoByVehiculo', datos, httpOptions)
+  .pipe(map(data => data as Contratos[] ));
 }
 
 }

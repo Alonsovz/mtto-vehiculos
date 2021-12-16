@@ -1,0 +1,203 @@
+<div class="card card-title">
+
+  <div class="columns">
+
+    <div class="column is-two-thirds">
+      <p class="card-header-title">
+        <img src="./assets/img/mechanism.png"> &nbsp; Gestión de talleres
+      </p>
+    </div>
+
+    <div class="column is-one-third">
+      <div class="field has-addons btnAlign">
+        <p class="control">
+          <button class="button btnGroup" (click)="showListado()">
+            <span class="icon is-small">
+              <img src="./assets/img/completed-task.png">
+            </span>
+            <span>Ver Listado</span>
+          </button>
+        </p>
+        <p class="control">
+          <button class="button btnGroup" (click)="showCardAgregar()">
+            <span class="icon is-small">
+              <img src="./assets/img/add.png">
+            </span>
+            <span>Agregar nuevo taller</span>
+          </button>
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
+<!--Skeleton loader-->
+<div class="cardLoader" *ngIf="showLoader">
+<progress class="progress is-small is-light load" max="100">15%</progress>
+<progress class="progress is-small is-light load" max="100">15%</progress>
+<progress class="progress is-small is-light load" max="100">15%</progress>
+<progress class="progress is-small is-light load" max="100">15%</progress>
+<progress class="progress is-small is-light load" max="100">15%</progress>
+<progress class="progress is-small is-light load" max="100">15%</progress>
+<progress class="progress is-small is-light load" max="100">15%</progress>
+<progress class="progress is-small is-light load" max="100">15%</progress>
+<progress class="progress is-small is-light load" max="100">15%</progress>
+<progress class="progress is-small is-light load" max="100">15%</progress>
+<progress class="progress is-small is-light load" max="100">15%</progress>
+<progress class="progress is-small is-light load" max="100">15%</progress>
+</div>
+
+
+
+<!--Card para tabla de listado de usuarios-->
+<div class="card card-body" style="top: -20px !important;" *ngIf="showData">
+
+<div class="card-content">
+
+  <div class="columns">
+    <div class="column is-two-thirds">
+      <h2 class="titulo">Listado de talleres</h2>
+    </div>
+
+    <div class="column is-one-quarter">
+      <div class="field">
+        <label class="label">Buscar</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Buscar" autocomplete="off"
+          (ngModelChange)="ConvertToLower($event)" [(ngModel)]="_texto" id="texto" name="texto">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<table class="table is-bordered is-striped is-narrow is-hoverable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Taller</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let obj of tblTaller  | searchtalleres:texto">
+        <td>{{obj.id}}</td>
+        <td>{{obj.nombre}}</td>
+        <td>{{obj.estado_taller}}</td>
+        <td>
+          <button class="button is-danger is-small is-light btn" (click)="showCardEditar(obj)">
+            <img src="./assets/img/editar.png" >
+          </button>
+          <button class="button is-danger is-small is-light btn" (click)="eliminarTaller(obj)">
+            <img src="./assets/img/trash.png" >
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+</div>
+
+
+<div class="card card-body addCard" style="top: -20px !important;" *ngIf="showCardAdd">
+  <div class="card-content">
+
+    <div class="columns">
+      <div class="column is-full">
+        <h2 class="titulo">Agregar nuevo taller</h2>
+      </div>
+
+    </div>
+
+    <form [formGroup]="agregarTallerForm">
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <label class="label">Nombre de taller</label>
+        </div>
+
+
+        <div class="column is-half">
+              <input class="input is-link" type="text" placeholder="Nombre de taller"
+              formControlName="nombre">
+        </div>
+
+
+      </div>
+
+      <br>
+      <div class="field">
+        <p class="control">
+          <button class="button is-link is-fullwidth" [disabled] = "agregarTallerForm.invalid"
+          (click)="guardarTaller()">
+           Crear Taller
+          </button>
+          <br>
+          <button class="button is-link is-light is-fullwidth" (click)="showListado()">
+            Cancelar
+          </button>
+        </p>
+      </div>
+    </form>
+
+
+
+  </div>
+</div>
+
+
+
+
+<div class="card card-body addCard" style="top: -20px !important;" *ngIf="showCardEdit">
+  <div class="card-content">
+
+    <div class="columns">
+      <div class="column is-full">
+        <h2 class="titulo">Editar taller</h2>
+      </div>
+
+    </div>
+
+    <form [formGroup]="editarTallerForm">
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <label class="label">Nombre de taller</label>
+        </div>
+
+
+        <div class="column is-half">
+              <input class="input is-link" type="text" placeholder="Nombre de taller"
+              formControlName="nombre" [(ngModel)]="taller.nombre">
+
+              <input class="input is-link" type="hidden" [(ngModel)]="taller.id"
+              formControlName="id">
+        </div>
+
+
+      </div>
+
+      <br>
+      <div class="field">
+        <p class="control">
+          <button class="button is-link is-fullwidth" [disabled] = "editarTallerForm.invalid"
+          (click)="editarTaller()">
+           Modificar Taller
+          </button>
+          <br>
+          <button class="button is-link is-light is-fullwidth" (click)="showListado()">
+            Cancelar
+          </button>
+        </p>
+      </div>
+    </form>
+
+
+
+  </div>
+</div>
+

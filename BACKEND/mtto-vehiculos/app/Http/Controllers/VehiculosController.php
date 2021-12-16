@@ -14,13 +14,31 @@ class VehiculosController extends Controller
     //metodo para obtener listado de vehiculos para mostrar en tabla de vista de vehiculos
     public function getVehiculos(){
         $vehiculos = 
-        DB::connection('comanda')->select("select vv.*, u.nombre +' '+u.apellido  as dueno 
+        DB::connection('comanda')->select("select vv.*, u.nombre +' '+u.apellido  as dueno, u.id as id_dueno
         from vh_vehiculos vv 
         inner JOIN users u on u.id = vv.dueño 
         order by 2	desc
         ");
 
         return response()->json($vehiculos);
+    }
+
+
+    public function editarVehiculo(Request $request){
+        
+
+        $editar = DB::connection('comanda')->table('vh_vehiculos')->where('id', $request["id"])
+        ->update([
+            'numeracion' => $request["numeracion"] , 
+            'placa' => $request["placa"] , 
+            'dueño' => $request["usuario"] , 
+            'marca' => $request["marca"] , 
+            'modelo' => $request["modelo"] , 
+            'anio' => $request["anio"] , 
+            'taller' => $request["taller"] , 
+        ]);
+
+        return response()->json($editar);
     }
 }
 

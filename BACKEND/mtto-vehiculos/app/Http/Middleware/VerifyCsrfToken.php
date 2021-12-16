@@ -38,6 +38,17 @@ class VerifyCsrfToken extends BaseVerifier
         'getTipoMtto',
         'getContratos',
         'guardarContrato',
-        'eliminarContrato'
+        'eliminarContrato',
+        'getNContratoByVehiculo',
+        'getUsuariosVh',
+        'editarVehiculo',
+        'guardar_detalle_soli',
+        'get_detalle_soli',
+        'getTalleres',
+        'guardarTaller',
+        'eliminarTaller',
+        'editarTaller',
+        'getTalleres_list',
+        'guardarPrecioMtto'
     ];
 }

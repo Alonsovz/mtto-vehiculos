@@ -45,4 +45,8 @@ export class TemplateComponent implements OnInit {
   contratos(){
     this.router.navigate(['dashboard/contratos']);
   }
+
+  goTalleres(){
+    this.router.navigate(['dashboard/talleres']);
+  }
 }

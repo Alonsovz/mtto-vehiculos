@@ -34,7 +34,13 @@ insert into mtto_vh_estado_soli values('Aprobada jefatura');
 insert into mtto_vh_estado_soli values('Aprobada mtto');
 insert into mtto_vh_estado_soli values('Finalizada');
 
-create table mtto_vh_solictud(
+CREATE table mtto_talleres(
+id int IDENTITY(1,1) PRIMARY KEY,
+nombre varchar(200),
+estado int
+);
+
+create table mtto_vh_solicitud(
 id int IDENTITY(1,1) PRIMARY KEY,
 fecha_solicitud datetime,
 dias_estimados int,
@@ -52,11 +58,16 @@ fecha_aprob_mtto datetime,
 idEliminado int,
 observaciones_finales varchar(500),
 fecha_finalizacion datetime,
-usuario_finalizacion varchar(40)
+usuario_finalizacion varchar(40),
+n_contrato varchar(50),
+id_taller int
 );
 
 
-ALTER TABLE mtto_vh_solictud
+ALTER TABLE mtto_vh_solicitud
+ADD FOREIGN KEY (id_taller) REFERENCES  mtto_talleres(id)
+
+ALTER TABLE mtto_vh_solicitud
 ADD FOREIGN KEY (estado) REFERENCES  mtto_vh_estado_soli(id)
 
 create table mtto_vh_tipos_mtto(
@@ -103,11 +114,21 @@ vehiculo_id int,
 rango_km_inicio float,
 rango_km_fin float,
 serv_restantes int,
-estado_contrato int
+estado_contrato varchar(10)
 );
 
 ALTER TABLE mtto_contratos_vehiculos
 ADD FOREIGN KEY (vehiculo_id) REFERENCES  vh_vehiculos(id)
+
+CREATE table mtto_detalle_mtto(
+id int IDENTITY(1,1) PRIMARY KEY,
+id_solicitud int,
+detalle_realizado varchar(200),
+precio float
+);
+
+ALTER TABLE mtto_detalle_mtto
+ADD FOREIGN KEY (id_solicitud) REFERENCES  mtto_vh_solicitud(id)
 
 
 
