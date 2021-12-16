@@ -60,7 +60,9 @@ observaciones_finales varchar(500),
 fecha_finalizacion datetime,
 usuario_finalizacion varchar(40),
 n_contrato varchar(50),
-id_taller int
+id_taller int,
+n_factura varchar(30),
+ruta_factura varchar(100)
 );
 
 

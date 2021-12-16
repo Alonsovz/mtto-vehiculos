@@ -49,6 +49,7 @@ class VerifyCsrfToken extends BaseVerifier
         'eliminarTaller',
         'editarTaller',
         'getTalleres_list',
-        'guardarPrecioMtto'
+        'guardarPrecioMtto',
+        'mover_archivo'
     ];
 }

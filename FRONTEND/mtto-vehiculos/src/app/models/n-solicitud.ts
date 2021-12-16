@@ -24,4 +24,6 @@ public solicitante : string;
 public jefe : number;
 public fecha_finalizacion_format : string;
 public id_taller : string;
+public n_factura : string;
+public file : string;
 }

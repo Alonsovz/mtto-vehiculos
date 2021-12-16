@@ -49,6 +49,7 @@ Route::post('getConteoUser', 'SolicitudController@getConteoUser');
 Route::post('guardar_detalle_soli', 'SolicitudController@guardar_detalle_soli');
 Route::post('get_detalle_soli', 'SolicitudController@get_detalle_soli');
 Route::post('guardarPrecioMtto', 'SolicitudController@guardarPrecioMtto');
+Route::post('mover_archivo', 'SolicitudController@mover_archivo');
 
 //rutas para contratos
 Route::any('getContratos', 'ContratosController@getContratos');

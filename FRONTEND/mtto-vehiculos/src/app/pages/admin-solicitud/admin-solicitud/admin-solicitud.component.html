@@ -551,7 +551,7 @@
           </div>
 
           <br>
-          <div class="columns">
+          <div class="columns" *ngIf="(datos_solicitud.estado  > 1)">
             <div class="column is-one-fifth">
               <label class="label">Taller</label>
             </div>
@@ -568,7 +568,21 @@
             </div>
           </div>
 
+          <br>
+          <div class="columns"  *ngIf="(datos_solicitud.estado  > 2)">
+            <div class="column is-one-fifth">
+              <label class="label">N° Factura</label>
+            </div>
 
+            <div class="column is-one-fifth">
+              <input class="input is-link" type="text" formControlName="n_factura" placeholder="N° Factura">
+            </div>
+
+            <div class="column is-half">
+              <input class="input is-link" type="file" formControlName="file" (change)="subir_archivo($event)">
+            </div>
+          </div>
+          <br>
           <div class="columns">
             <div class="column is-one-fifth">
               <label class="label">Observaciones adicionales</label>
@@ -579,6 +593,9 @@
               formControlName="observaciones"></textarea>
             </div>
           </div>
+
+
+
 
 
 

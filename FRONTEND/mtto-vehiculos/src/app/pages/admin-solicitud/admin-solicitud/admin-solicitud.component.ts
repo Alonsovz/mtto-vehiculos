@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -9,6 +10,7 @@ import { Talleres } from 'src/app/models/talleres';
 import { Usuario } from 'src/app/models/usuario';
 import { Vehiculos } from 'src/app/models/vehiculos';
 import { AdminSolicitudService } from 'src/app/services/admin-solicitud.service';
+import { GlobalService } from 'src/app/services/global.service';
 import { TalleresService } from 'src/app/services/talleres.service';
 import { VehiculosService } from 'src/app/services/vehiculos.service';
 
@@ -44,9 +46,11 @@ export class AdminSolicitudComponent implements OnInit {
   detalle_soli: DetalleMtto[] = [];
   objTalleres: Talleres[];
   detalle_mtto_form: FormGroup;
+  archivo!: File;
+
   constructor(private router: Router,private crf: ChangeDetectorRef,private vehiculo: VehiculosService,
     private soliService: AdminSolicitudService, private toastr: ToastrService,
-    private taller_service: TalleresService, private cdRef:ChangeDetectorRef) {
+    private taller_service: TalleresService, private cdRef:ChangeDetectorRef, private http: HttpClient, private urlBackEnd: GlobalService,) {
       this.n_solicitud_form = new FormGroup({
         'nombreSolicitante': new FormControl('',[Validators.required]),
         'departamento': new FormControl('',[Validators.required]),
@@ -67,6 +71,9 @@ export class AdminSolicitudComponent implements OnInit {
         'fecha_finalizacion_format': new FormControl('',[Validators.required]),
         'usuario_finalizacion': new FormControl('',[Validators.required]),
         'taller': new FormControl('0',[Validators.required]),
+        'n_factura': new FormControl(''),
+        'file': new FormControl(''),
+
       });
 
       this.detalle_mtto_form= new FormGroup({
@@ -109,6 +116,23 @@ export class AdminSolicitudComponent implements OnInit {
   this.cdRef.detectChanges();
 }
 
+
+subir_archivo(fileInput: any) {
+  this.archivo = <File>fileInput.target.files[0];
+
+  const formData = new FormData();
+  formData.append('file', this.archivo);
+
+  this.http.post(this.urlBackEnd.getUrlBackEnd() +'mover_archivo', formData)
+  .subscribe(
+    response => {
+    },
+    err => {
+    },
+    () => {
+    });
+
+}
 
   public getConteoAdmin(){
     this.soliService.getConteoAdmin().subscribe(
@@ -418,7 +442,8 @@ export class AdminSolicitudComponent implements OnInit {
     datos.id = this.datos_solicitud.id;
     datos.observaciones_finales = this.n_solicitud_form.controls["observaciones_finales"].value;
     datos.usuario_finalizacion = this.user.alias;
-
+    datos.file = this.n_solicitud_form.controls["file"].value;
+    datos.n_factura = this.n_solicitud_form.controls["n_factura"].value;
     console.log(datos);
     this.soliService.finalizarSolicitud(datos).subscribe(
       response => {

@@ -366,6 +366,8 @@ class SolicitudController extends Controller
                 'observaciones_finales' => $request['observaciones_finales'],
                 'fecha_finalizacion ' => date('Ymd H:i'),
                 'usuario_finalizacion' => $request["usuario_finalizacion"],
+                'ruta_factura' =>  date('Ymd').' '.strtolower(substr($request["file"],12)),
+                'n_factura' =>  $request['n_factura'],
                 ]);
 
         return response()->json($editar);
@@ -424,6 +426,19 @@ class SolicitudController extends Controller
         ]);
 
         return response()->json($editar);
+    }
+
+
+    public function mover_archivo(Request $request){
+        $file = $request->file('file');
+        $nombreoriginal = strtolower($file->getClientOriginalName());
+        $file->move('documentos/',date('Ymd').' '.(string)$nombreoriginal);
+
+        $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+
+        $final_name = date('Ymd').' '.(string)$nombreoriginal.''.substr($extension,0,-3);
+    
+        return response()->json($final_name);
     }
 
 }
