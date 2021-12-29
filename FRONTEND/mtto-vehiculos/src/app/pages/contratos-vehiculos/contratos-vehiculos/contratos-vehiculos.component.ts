@@ -20,6 +20,7 @@ export class ContratosVehiculosComponent implements OnInit {
   tblContratos: Contratos[];
   objVehiculos: Vehiculos[];
   agregarContratoForm: FormGroup;
+  detalle_vh: Vehiculos[] = [];
 
   constructor(private contrato_service: ContratoServiceService, private toastr: ToastrService,
     private vehiculo: VehiculosService,) { }
@@ -123,6 +124,28 @@ export class ContratosVehiculosComponent implements OnInit {
 
 
       );
+
+    }
+
+
+    getDetallesVh(){
+      let datos : Vehiculos = new Vehiculos();
+
+      datos = this.agregarContratoForm.value;
+
+      this.contrato_service.getDetallesVh(datos)
+        .subscribe(
+          response =>{
+            this.detalle_vh = response;
+          },
+          err =>{
+
+          },
+          ()=>{
+
+          }
+        );
+
 
     }
 }

@@ -43,4 +43,9 @@ public getNContratoByVehiculo(datos: Vehiculos): Observable<Contratos[]> {
   .pipe(map(data => data as Contratos[] ));
 }
 
+public getDetallesVh(datos: Vehiculos): Observable<Vehiculos[]> {
+  return this.http.post<Vehiculos[]>(this.globalservice.getUrlBackEnd() + 'getDetallesVh', datos, httpOptions)
+  .pipe(map(data => data as Vehiculos[] ));
+}
+
 }

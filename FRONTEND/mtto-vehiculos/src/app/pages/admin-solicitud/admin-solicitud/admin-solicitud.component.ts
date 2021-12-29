@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AdminSolicitud } from 'src/app/models/admin-solicitud';
@@ -47,10 +48,14 @@ export class AdminSolicitudComponent implements OnInit {
   objTalleres: Talleres[];
   detalle_mtto_form: FormGroup;
   archivo!: File;
+  extension: string;
+
+  archivoRuta : SafeResourceUrl;
 
   constructor(private router: Router,private crf: ChangeDetectorRef,private vehiculo: VehiculosService,
     private soliService: AdminSolicitudService, private toastr: ToastrService,
-    private taller_service: TalleresService, private cdRef:ChangeDetectorRef, private http: HttpClient, private urlBackEnd: GlobalService,) {
+    private taller_service: TalleresService, private cdRef:ChangeDetectorRef, private http: HttpClient, private urlBackEnd: GlobalService,
+    public sanitizer: DomSanitizer,) {
       this.n_solicitud_form = new FormGroup({
         'nombreSolicitante': new FormControl('',[Validators.required]),
         'departamento': new FormControl('',[Validators.required]),
@@ -114,6 +119,24 @@ export class AdminSolicitudComponent implements OnInit {
 {
 
   this.cdRef.detectChanges();
+}
+
+verDoc(ruta: any){
+  this.extension = ruta.substr(ruta.length -3);
+  var modalDlg = document.querySelector('#modalArchivo');
+  modalDlg.classList.add('is-active');
+
+
+  var url = this.urlBackEnd.getUrlBackEnd()+'documentos/'+ruta+'';
+
+  this.archivoRuta =  this.sanitizer.bypassSecurityTrustResourceUrl(url);
+
+}
+
+cerrarModalArchivo(){
+
+  var modalDlg = document.querySelector('#modalArchivo');
+  modalDlg.classList.remove('is-active');
 }
 
 

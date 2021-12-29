@@ -28,6 +28,7 @@ Route::any('getUsuariosVh', 'UsuarioController@getUsuariosVh');
 //rutas para vehiculos
 Route::any('getVehiculos', 'VehiculosController@getVehiculos');
 Route::post('editarVehiculo', 'VehiculosController@editarVehiculo');
+Route::post('getDetallesVh', 'VehiculosController@getDetallesVh');
 
 //rutas para solicutdes
 Route::post('guardar_solicitud', 'SolicitudController@guardar_solicitud');

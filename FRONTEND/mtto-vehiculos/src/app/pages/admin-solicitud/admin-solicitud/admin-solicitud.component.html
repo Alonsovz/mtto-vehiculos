@@ -514,7 +514,7 @@
             <form [formGroup]="detalle_mtto_form">
               <div *ngIf="detalle_soli.length > 0">
                 <div class="columns" *ngFor="let dt of detalle_soli">
-                  <div class="column is-one-third" *ngIf="(datos_solicitud.estado  == 3)">
+                  <div class="column is-one-third" *ngIf="(datos_solicitud.estado  > 0)">
                     <ul style="list-style-type: circle;" >
                       <li >
                           {{dt.detalle_realizado}}
@@ -575,11 +575,16 @@
             </div>
 
             <div class="column is-one-fifth">
-              <input class="input is-link" type="text" formControlName="n_factura" placeholder="N° Factura">
+              <input class="input is-link" type="text" formControlName="n_factura" placeholder="N° Factura" [(ngModel)]="datos_solicitud.n_factura">
             </div>
 
-            <div class="column is-half">
+            <div class="column is-half" *ngIf="(datos_solicitud.estado  < 4)">
               <input class="input is-link" type="file" formControlName="file" (change)="subir_archivo($event)">
+            </div>
+            <div class="column is-half" *ngIf="(datos_solicitud.estado  == 4)">
+              <button class="button is-link is-small" (click)="verDoc(datos_solicitud.ruta_factura)">
+                Ver Documento
+              </button>
             </div>
           </div>
           <br>
@@ -600,7 +605,7 @@
 
 
 
-          <div class="columns" *ngIf="(datos_solicitud.estado >= 1)">
+          <div class="columns" *ngIf="(datos_solicitud.estado > 1)">
             <div class="column is-one-fifth">
                   <label class="label">Aprobación Jefatura</label>
             </div>
@@ -695,24 +700,24 @@
         </form>
       </section>
       <footer class="modal-card-foot">
-        <button class="button is-danger is-medium" (click)="showListadoAdmin()" *ngIf="user.rol != 'Solicitante'">
+        <button class="button is-danger is-small" (click)="showListadoAdmin()" *ngIf="user.rol != 'Solicitante'">
           Cerrar
         </button>
-        <button class="button is-danger is-medium" (click)="showListadoMis()" *ngIf="user.rol =='Solicitante'">
+        <button class="button is-danger is-small" (click)="showListadoMis()" *ngIf="user.rol =='Solicitante'">
           Cerrar
         </button>
 
-        <button class="button is-link is-medium" (click)="aprobarSolicitudJefe()" *ngIf="(user.id == datos_solicitud.jefe) && (datos_solicitud.estado == 1)">
+        <button class="button is-link is-small" (click)="aprobarSolicitudJefe()" *ngIf="(user.id == datos_solicitud.jefe) && (datos_solicitud.estado == 1)">
           Aprobar por jefatura
         </button>
 
-        <button class="button is-link is-medium" (click)="aprobarSolicitudMtto()"
+        <button class="button is-link is-small" (click)="aprobarSolicitudMtto()"
         *ngIf="(user.rol =='Administrador' || user.rol =='Encargado de mantenimiento')  && (datos_solicitud.estado == 2)">
           Aprobar por encargado de mtto.
         </button>
 
 
-        <button class="button is-link is-medium" (click)="finalizarSolicitud()"
+        <button class="button is-link is-small" (click)="finalizarSolicitud()"
         *ngIf="(datos_solicitud.estado == 3) && (user.rol =='Administrador' || user.rol =='Encargado de mantenimiento' || datos_solicitud.id_solicitante == user.id)">
           Finalizar solicitud
         </button>
@@ -722,3 +727,32 @@
     </div>
   </div>
 
+
+
+  <div class="modal" id="modalArchivo">
+    <div class="modal-background"></div>
+    <div class="modal-card size">
+      <header class="modal-card-head">Vista de documento</header>
+      <section class="modal-card-body">
+
+        <div *ngIf="extension == 'pdf'">
+          <iframe [src]="archivoRuta" width="100%" height="650px"></iframe>
+        </div>
+        <div *ngIf="extension === 'jpg' || extension === 'JPG' || extension === 'PEG' || extension === 'peg'">
+          <img [src]="archivoRuta" width="650px" height="450px"
+          style="margin-left: 20%;"/>
+        </div>
+
+        <div *ngIf="extension == 'png' ">
+          <img [src]="archivoRuta" width="650px" height="450px"
+          style="margin-left: 20%;"/>
+        </div>
+
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-danger is-small" (click)="cerrarModalArchivo()">
+          Cerrar
+        </button>
+      </footer>
+    </div>
+</div>

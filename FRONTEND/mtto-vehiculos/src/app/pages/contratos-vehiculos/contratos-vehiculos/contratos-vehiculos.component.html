@@ -125,9 +125,9 @@
         <div class="column is-one-third">
           <div class="control inputSelect">
             <div class="select inputSelect is-link">
-              <select class="inputSelect is-link" formControlName="id_vehiculo">
+              <select class="inputSelect is-link" formControlName="id_vehiculo" (ngModelChange)="getDetallesVh()">
                 <option selected value="0">Selecciona el vehículo</option>
-                <option *ngFor="let vh of objVehiculos" value="{{vh.id}}">{{vh.numeracion}}</option>
+                <option *ngFor="let vh of objVehiculos" value="{{vh.id}}">N°: {{vh.numeracion}} ----- Placa: {{vh.placa}}</option>
               </select>
             </div>
           </div>
@@ -144,6 +144,18 @@
         </div>
 
 
+      </div>
+
+      <div class="colums"*ngIf="detalle_vh.length > 0">
+        <div class="column is-one-third">
+         <ul *ngFor="let vh of detalle_vh">
+           <li><b>N°:</b> {{vh.numeracion}}</li>
+           <li><b>Marca:</b> {{vh.marca}}</li>
+           <li><b>Modelo:</b> {{vh.modelo}}</li>
+           <li><b>Año:</b> {{vh.anio}}</li>
+
+         </ul>
+        </div>
       </div>
 
       <div class="columns">

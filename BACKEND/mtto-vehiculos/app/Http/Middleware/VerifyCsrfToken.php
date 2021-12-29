@@ -50,6 +50,7 @@ class VerifyCsrfToken extends BaseVerifier
         'editarTaller',
         'getTalleres_list',
         'guardarPrecioMtto',
-        'mover_archivo'
+        'mover_archivo',
+        'getDetallesVh'
     ];
 }

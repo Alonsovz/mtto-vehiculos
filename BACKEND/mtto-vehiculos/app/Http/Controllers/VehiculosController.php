@@ -40,6 +40,18 @@ class VehiculosController extends Controller
 
         return response()->json($editar);
     }
+
+
+    public function getDetallesVh(Request $request){
+        $vehiculos = 
+        DB::connection('comanda')->select("select vv.*, u.nombre +' '+u.apellido  as dueno, u.id as id_dueno
+        from vh_vehiculos vv 
+        inner JOIN users u on u.id = vv.dueño 
+        where vv.id = ".$request["id_vehiculo"]."
+        ");
+
+        return response()->json($vehiculos);
+    }
 }
 
 
