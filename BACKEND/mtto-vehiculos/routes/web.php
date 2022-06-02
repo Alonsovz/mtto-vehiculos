@@ -57,7 +57,7 @@ Route::any('getContratos', 'ContratosController@getContratos');
 Route::post('guardarContrato', 'ContratosController@guardarContrato');
 Route::post('eliminarContrato', 'ContratosController@eliminarContrato');
 Route::post('getNContratoByVehiculo', 'ContratosController@getNContratoByVehiculo');
-
+Route::post('editarContrato', 'ContratosController@editarContrato');
 
 //rutas para taller
 Route::any('getTalleres', 'TallerController@getTalleres');
@@ -65,3 +65,13 @@ Route::post('guardarTaller', 'TallerController@guardarTaller');
 Route::post('eliminarTaller', 'TallerController@eliminarTaller');
 Route::post('editarTaller', 'TallerController@editarTaller');
 Route::any('getTalleres_list', 'TallerController@getTalleres_list');
+
+//rutas para detalles de mtto
+Route::any('getDetalles', 'DetallesMttoController@getDetalles');
+Route::post('editDetalle', 'DetallesMttoController@editDetalle');
+Route::post('eliminarDetalle', 'DetallesMttoController@eliminarDetalle');
+Route::post('guardarDetalle', 'DetallesMttoController@guardarDetalle');
+Route::any('getDetallesServFrec', 'DetallesMttoController@getDetallesServFrec');
+Route::post('guardarServicioFrecuente', 'DetallesMttoController@guardarServicioFrecuente');
+Route::post('getServicioFrecuentes', 'DetallesMttoController@getServicioFrecuentes');
+Route::post('addDetalleMtto', 'DetallesMttoController@addDetalleMtto');

@@ -10,6 +10,20 @@
           <div class="column">
             <div class="card card-body">
               <header class="cardheader"><br>
+                Nueva solicitud
+              </header>
+              <div class="card-content">
+                <img src="./assets/img/add-file.png">
+
+                <button class="button is-link is-light is-small go" (click)="nueva_solicitud()">
+                  <img src="./assets/img/right-arrow.png">
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="card card-body">
+              <header class="cardheader"><br>
                 Administrar solicitudes
               </header>
               <div class="card-content">
@@ -58,6 +72,20 @@
         <div class="columns" style="margin-top: 25px !important;"
         *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
 
+          <div class="column">
+            <div class="card card-body">
+              <header class="cardheader"><br>
+              Detalles de mttos.
+              </header>
+              <div class="card-content">
+                <img src="./assets/img/list1.png">
+
+                <button class="button is-link is-light is-small go" (click)="godetallesMtto()">
+                  <img src="./assets/img/right-arrow.png">
+                </button>
+              </div>
+            </div>
+          </div>
 
           <div class="column" *ngIf="user.rol =='Administrador'">
             <div class="card card-body">
@@ -111,7 +139,7 @@
           <div class="column" *ngIf="user.rol =='Administrador' || user.rol =='Encargado de mantenimiento'">
             <div class="card card-body">
               <header class="cardheader"><br>
-                Talleres
+                Talleres / Agencias
               </header>
               <div class="card-content">
                 <img src="./assets/img/mechanic.png">

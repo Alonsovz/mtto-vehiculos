@@ -52,7 +52,7 @@
 
 
 
-<!--Card para tabla de listado de usuarios-->
+
 <div class="card card-body" style="top: -20px !important;" *ngIf="showData">
 
 <div class="card-content">
@@ -78,7 +78,7 @@
     <thead>
       <tr>
         <th>N° Contrato</th>
-        <th>Agencia</th>
+        <th>Taller / Agencia</th>
         <th>N° Vehiculo</th>
         <th>Serv. Restantes</th>
         <th>Estado</th>
@@ -93,7 +93,9 @@
         <td>{{obj.serv_restantes}}</td>
         <td>{{obj.estado_contrato}}</td>
         <td>
-
+          <button class="button is-link is-small is-light btn" (click)="showCardEditar(obj)">
+            <img src="./assets/img/editar.png" >
+          </button>
           <button class="button is-danger is-small is-light btn" (click)="eliminarContrato(obj)">
             <img src="./assets/img/trash.png" >
           </button>
@@ -106,7 +108,7 @@
 
 </div>
 
-<!--Card para agregar un nuevo usuario-->
+
 <div class="card card-body addCard" style="top: -20px !important;" *ngIf="showCardAdd">
   <div class="card-content">
 
@@ -163,8 +165,14 @@
           <label class="label">Agencia de servicio</label>
         </div>
         <div class="column is-one-third">
-          <input class="input is-link" type="text" placeholder="Agencia de servicio"
-          formControlName="agencia">
+          <div class="control inputSelect">
+            <div class="select inputSelect is-link">
+            <select class="inputSelect is-link" formControlName="agencia" placeholder="Agencia de servicio">
+              <option selected value="0">Selecciona el taller/agencia</option>
+              <option *ngFor="let vh of tblTaller" value="{{vh.nombre}}">{{vh.nombre}}</option>
+            </select>
+            </div>
+          </div>
         </div>
 
 
@@ -224,6 +232,120 @@
   </div>
 </div>
 
+
+
+<div class="card card-body editCard" style="top: -20px !important;" *ngIf="showCardEdit">
+  <div class="card-content">
+
+    <div class="columns">
+      <div class="column is-full">
+        <h2 class="titulo">Editar contrato</h2>
+      </div>
+
+    </div>
+
+    <form [formGroup]="editarContratoForm">
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <label class="label">Número de vehiculo</label>
+        </div>
+        <div class="column is-one-third">
+          <div class="control inputSelect">
+            <div class="select inputSelect is-link">
+              <select class="inputSelect is-link" formControlName="id_vehiculo" [(ngModel)]="detalle_contrato.vehiculo_id">
+                <option *ngFor="let vh of objVehiculos" value="{{vh.id}}">N°: {{vh.numeracion}} ----- Placa: {{vh.placa}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="column is-one-fifth">
+          <label class="label">N° Contrato</label>
+        </div>
+
+        <div class="column is-one-third">
+              <input class="input is-link" type="text" placeholder="N° Contrato" [(ngModel)]="detalle_contrato.n_contrato"
+              formControlName="n_contrato">
+
+              <input class="input is-link" type="hidden" [(ngModel)]="detalle_contrato.id"
+              formControlName="id">
+        </div>
+
+
+      </div>
+
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <label class="label">Agencia de servicio</label>
+        </div>
+        <div class="column is-one-third">
+
+          <div class="control inputSelect">
+            <div class="select inputSelect is-link">
+            <select class="inputSelect is-link" formControlName="agencia" [(ngModel)]="detalle_contrato.nombre_agencia">
+              <option *ngFor="let vh of tblTaller" value="{{vh.nombre}}">{{vh.nombre}}</option>
+            </select>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="column is-one-fifth">
+          <label class="label">Cantidad de servicios</label>
+        </div>
+
+        <div class="column is-one-third">
+              <input class="input is-link" type="number" placeholder="Cantidad de servicios" [(ngModel)]="detalle_contrato.serv_restantes"
+              formControlName="cant_servs">
+        </div>
+
+
+      </div>
+
+
+      <div class="columns">
+        <div class="column is-one-fifth">
+          <label class="label">Km Inicial</label>
+        </div>
+        <div class="column is-one-third">
+          <input class="input is-link" type="number" placeholder="Km Inicial" [(ngModel)]="detalle_contrato.rango_km_inicio"
+          formControlName="km_inicial">
+        </div>
+
+
+        <div class="column is-one-fifth">
+          <label class="label">Km Final</label>
+        </div>
+
+        <div class="column is-one-third">
+              <input class="input is-link" type="number" placeholder="Km Final" [(ngModel)]="detalle_contrato.rango_km_fin"
+              formControlName="km_final">
+        </div>
+
+
+      </div>
+
+
+      <br>
+      <div class="field">
+        <p class="control">
+          <button class="button is-link is-fullwidth" [disabled] = "editarContratoForm.invalid"
+          (click)="editarContrato()">
+           Guardar contrato
+          </button>
+          <br>
+          <button class="button is-link is-light is-fullwidth" (click)="showListado()">
+            Cancelar
+          </button>
+        </p>
+      </div>
+    </form>
+
+
+
+  </div>
+</div>
 
 
 

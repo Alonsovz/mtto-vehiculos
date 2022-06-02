@@ -16,7 +16,8 @@ class VehiculosController extends Controller
         $vehiculos = 
         DB::connection('comanda')->select("select vv.*, u.nombre +' '+u.apellido  as dueno, u.id as id_dueno
         from vh_vehiculos vv 
-        inner JOIN users u on u.id = vv.dueño 
+        left JOIN users u on u.id = vv.dueño 
+        where validacion = 1
         order by 2	desc
         ");
 

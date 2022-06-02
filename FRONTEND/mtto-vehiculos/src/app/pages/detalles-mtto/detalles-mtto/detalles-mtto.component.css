@@ -1,5 +1,5 @@
 .addCard{
-  width: 60% !important;
+  width: 90% !important;
   margin: auto !important;
 }
 
@@ -8,7 +8,7 @@
 }
 
 form{
-  width: 80% !important ;
+  width: 30% !important ;
   margin: auto !important;
 }
 
@@ -44,7 +44,7 @@ form{
 }
 
 .btn1{
-  margin-left: 15% !important;
+  margin-left: 25% !important;
 }
 
 .btnAlign{
@@ -73,7 +73,7 @@ form{
 
 
 table{
-  width: 95% !important;
+  width: 90% !important;
   margin: auto !important;
   font-family: 'Montserrat', sans-serif !important;
 }
@@ -82,16 +82,18 @@ table{
 thead {
   display: table; /* to take the same width as tr */
   width: calc(100% - 17px); /* - 17px because of the scrollbar width */
+  text-align: center !important;
 }
 
 tbody {
   display: block; /* to enable vertical scrolling */
-  max-height: 400px; /* e.g. */
+  max-height: 450px; /* e.g. */
   overflow-y: scroll; /* keeps the scrollbar even if it doesn't need it; display purpose */
+  text-align: center !important;
 }
 
 th, td {
-  width: 12.5%; /* to enable "word-break: break-all" */
+  width: 33.3%; /* to enable "word-break: break-all" */
   padding: 5px;
   word-break: break-all; /* 4. */
 }
@@ -109,40 +111,20 @@ td {
 }
 
 
-#modalServicioFrec{
-  width: 100% !important;
-  margin: auto !important;
-
-}
-
-.size{
-  width: 60% !important;
-}
-
-
-.card-modal-title{
-  color: #120E4F !important;
+label{
   font-family: 'Montserrat', sans-serif !important;
-  font-weight: normal !important;
+  font-weight: bold !important;
+  font-size: 15px !important;
+  text-align: left !important;
+  color: #120E4F !important;
+}
+
+input{
+  font-family: 'Montserrat', sans-serif !important;
   font-size: 15px !important;
 }
 
-
-.content-tab{
-  margin-left: 2% !important;
-}
-
-.serv_title{
-  color: #120E4F !important;
-  font-size: 18px !important;
-  font-weight: bold !important;
-  text-align: center !important;
-}
-
-
-
-.services{
-  display: block !important; /* to enable vertical scrolling */
-  max-height: 200px !important; /* e.g. */
-  overflow-y: scroll !important; /* keeps the scrollbar even if it doesn't need it; display purpose */
+textarea{
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 15px !important;
 }

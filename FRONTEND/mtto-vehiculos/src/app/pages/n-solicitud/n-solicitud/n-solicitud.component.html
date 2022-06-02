@@ -74,7 +74,8 @@
             <div class="select inputSelect is-link">
               <select class="inputSelect is-link" formControlName="id_vehiculo" (ngModelChange)="getKmbyVehiculo()">
                 <option selected value="">Selecciona el vehículo</option>
-                <option *ngFor="let vh of objVehiculos" value="{{vh.id}}">{{vh.numeracion}}</option>
+                <option *ngFor="let vh of objVehiculos" value="{{vh.id}}">
+                  N°: {{vh.numeracion}} ---------- Placa : {{vh.placa}}</option>
               </select>
             </div>
             <div class="icon is-small is-left">
@@ -185,6 +186,9 @@
             </table>
 
         </div>
+        <div class="column" *ngIf="detalle_contrato.length === 0 && validar_contrato">
+          <label class="label">El vehículo no posee contrato activo</label>
+        </div>
 
 
           <div class="column" *ngFor="let dt of detalle_contrato">
@@ -205,9 +209,7 @@
             formControlName="n_contrato" readonly [(ngModel)]="dt.n_contrato">
           </div>
 
-          <div class="column" *ngIf="detalle_contrato.length === 0 && validar_contrato">
-            <label class="label">El vehículo no posee contrato activo</label>
-          </div>
+
 
       </div>
 
@@ -225,7 +227,7 @@
 
       <div class="columns">
         <div class="column">
-          <button class="button is-link is-fullwidth" (click)="guardar_soli()">Guardar solicitud</button>
+          <button class="button is-link is-fullwidth" (click)="guardar_soli()"  [disabled] = "n_solicitud_form.invalid">Guardar solicitud</button>
         </div>
       </div>
       <div class="columns">

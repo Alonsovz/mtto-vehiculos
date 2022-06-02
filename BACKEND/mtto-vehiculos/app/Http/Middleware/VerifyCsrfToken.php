@@ -51,6 +51,15 @@ class VerifyCsrfToken extends BaseVerifier
         'getTalleres_list',
         'guardarPrecioMtto',
         'mover_archivo',
-        'getDetallesVh'
+        'getDetallesVh',
+        'getDetalles',
+        'editDetalle',
+        'eliminarDetalle',
+        'guardarDetalle',
+        'getDetallesServFrec',
+        'guardarServicioFrecuente',
+        'getServicioFrecuentes',
+        'addDetalleMtto',
+        'editarContrato'
     ];
 }

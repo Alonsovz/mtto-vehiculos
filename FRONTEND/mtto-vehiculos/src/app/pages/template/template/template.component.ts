@@ -49,4 +49,8 @@ export class TemplateComponent implements OnInit {
   goTalleres(){
     this.router.navigate(['dashboard/talleres']);
   }
+
+  godetallesMtto(){
+    this.router.navigate(['dashboard/detalles-mtto']);
+  }
 }

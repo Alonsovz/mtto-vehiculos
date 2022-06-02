@@ -50,6 +50,24 @@ class ContratosController extends Controller
         return response()->json($editar);
     }
 
+    public function editarContrato(Request $request){
+        $id = $request["id"];
+
+        $editar = DB::connection('comanda')->table('mtto_contratos_vehiculos')->where('id', $id)
+        ->update([
+            'n_contrato' => $request["n_contrato"],
+            'nombre_agencia' => $request["agencia"],
+            'vehiculo_id' => $request["id_vehiculo"],
+            'rango_km_inicio' => $request["km_inicial"],
+            'rango_km_fin' => $request["km_final"],
+            'serv_restantes' => $request["cant_servs"],
+        ]);
+
+        return response()->json($editar);
+    }
+
+
+    
 
     public function getNContratoByVehiculo(Request $request){
         $getContratos = 

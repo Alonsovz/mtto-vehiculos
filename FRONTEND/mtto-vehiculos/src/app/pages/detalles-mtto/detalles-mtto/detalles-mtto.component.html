@@ -1,0 +1,194 @@
+<div class="card card-title">
+
+  <div class="columns">
+
+    <div class="column is-two-thirds">
+      <p class="card-header-title">
+        <img src="./assets/img/list.png"> &nbsp; Gestión de Detalles de mtto
+      </p>
+    </div>
+
+    <div class="column is-one-third">
+      <div class="field has-addons btnAlign">
+        <p class="control">
+          <button class="button btnGroup" (click)="showListado()">
+            <span class="icon is-small">
+              <img src="./assets/img/completed-task.png">
+            </span>
+            <span>Ver Listado</span>
+          </button>
+        </p>
+        <p class="control">
+          <button class="button btnGroup" (click)="showCardAgregar()">
+            <span class="icon is-small">
+              <img src="./assets/img/add.png">
+            </span>
+            <span>Agregar nuevo detalle</span>
+          </button>
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
+<div class="card card-body" style="top: -20px !important;" *ngIf="showData">
+
+  <div class="card-content">
+
+    <div class="columns">
+      <div class="column is-two-thirds">
+        <h2 class="titulo">Listado de detalles de mtto</h2>
+      </div>
+
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label class="label">Buscar</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Buscar" autocomplete="off"
+            (ngModelChange)="ConvertToLower($event)" [(ngModel)]="_texto" id="texto" name="texto">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  <table class="table is-bordered is-striped is-narrow is-hoverable">
+      <thead>
+        <tr>
+          <th>Detalle</th>
+          <th>Tipo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obj of tblDetalles  | searchdetalle:texto">
+          <td>{{obj.nombre}}</td>
+          <td>{{obj.mtto}}</td>
+          <td>
+            <button class="button is-link is-small is-light btn" (click)="editarDetalle(obj)">
+              <img src="./assets/img/editar.png" >
+            </button>
+
+            <button class="button is-danger is-small is-light btn" (click)="eliminarDetalle(obj)">
+              <img src="./assets/img/trash.png" >
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  </div>
+
+
+<div class="card card-body addCard" style="top: -20px !important;" *ngIf="showCardAdd">
+  <div class="card-content">
+
+    <div class="columns">
+      <div class="column">
+        <h2 class="titulo">Agregar nuevo detalle de mtto</h2>
+      </div>
+
+    </div>
+
+
+    <form [formGroup]="agregarDetalleForm">
+      <div class="field">
+        <div class="control">
+          <label class="label">Detalle</label>
+          <input class="input" type="text" formControlName="detalle" placeholder="Detalle de Mtto">
+
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+
+          <label class="label">Tipo</label>
+          <div class="control inputSelect">
+            <div class="select inputSelect is-link">
+              <select class="inputSelect is-link" formControlName="tipo">
+                <option selected value="0">Selecciona </option>
+                <option selected value="Correctivo">Correctivo</option>
+                <option selected value="Preventivo">Preventivo</option>
+                <option selected value="Serv. Frecuente">Servicio Frecuente</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="field">
+        <p class="control">
+          <button class="button is-link is-fullwidth" [disabled] = "agregarDetalleForm.invalid"
+          (click)="guardarDetalle()">
+           Crear Detalle de Mtto
+          </button>
+          <br>
+          <button class="button is-link is-light is-fullwidth" (click)="showListado()">
+            Cancelar
+          </button>
+        </p>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+
+
+<div class="card card-body addCard" style="top: -20px !important;" *ngIf="showCardEdit">
+  <div class="card-content">
+
+    <div class="columns">
+      <div class="column is-full">
+        <h2 class="titulo">Editar Vehiculo</h2>
+      </div>
+
+    </div>
+
+    <form [formGroup]="editarDetalleForm">
+      <div class="field">
+        <div class="control">
+          <label class="label">Detalle</label>
+          <input class="input" type="text" formControlName="detalle" placeholder="Detalle de Mtto" [(ngModel)]="datos_det.nombre">
+          <input class="input" type="hidden" formControlName="id" [(ngModel)]="datos_det.id">
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+
+          <label class="label">Tipo</label>
+          <div class="control inputSelect">
+            <div class="select inputSelect is-link">
+              <select class="inputSelect is-link" formControlName="tipo" [(ngModel)]="datos_det.mtto">
+                <option selected value="0">Selecciona </option>
+                <option selected value="Correctivo">Correctivo</option>
+                <option selected value="Preventivo">Preventivo</option>
+                <option selected value="Serv. Frecuente">Servicio Frecuente</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="field">
+        <p class="control">
+          <button class="button is-link is-fullwidth" [disabled] = "editarDetalleForm.invalid"
+          (click)="editDetalle()">
+           Editar Detalle de Mtto
+          </button>
+          <br>
+          <button class="button is-link is-light is-fullwidth" (click)="showListado()">
+            Cancelar
+          </button>
+        </p>
+      </div>
+    </form>
+
+
+  </div>
+</div>

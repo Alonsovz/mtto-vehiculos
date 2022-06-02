@@ -78,8 +78,12 @@
           <td>{{vh.anio}}</td>
 
           <td>
-            <button class="button is-primary is-small is-light btn1">
-              <img src="./assets/img/editar.png" (click)="editarVehiculo(vh)">
+            <button class="button is-primary is-small is-light btn1" (click)="editarVehiculo(vh)">
+              <img src="./assets/img/editar.png" >
+            </button>
+
+            <button class="button is-link is-small is-light " (click)="openModalServicioFrec(vh)">
+              <img src="./assets/img/cobrar.png" >
             </button>
           </td>
         </tr>
@@ -198,5 +202,257 @@
     </form>
 
 
+  </div>
+</div>
+
+
+
+
+<div class="modal" id="modalServicioFrec">
+  <div class="modal-background"></div>
+  <div class="modal-card size">
+    <header class="modal-card-head"><h2 class="titulo">Servicios Frecuentes</h2></header>
+    <section class="modal-card-body">
+
+      <div class="tabs is-left is-boxed">
+        <ul>
+          <li class="tab is-active" (click)="openTab($event,'lista')" id="tab1">
+            <a>
+              <span class="tabTitle"> Servicios asociados al vehiculo</span>
+            </a>
+          </li>
+          <li class="tab" (click)="openTab($event,'agregar')" id="tab2">
+            <a>
+              <span class="tabTitle">Agregar nuevo servicio frecuente</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+
+        <div   id="lista" class="content-tab">
+          <div class="contenido" *ngIf="showListaVh">
+
+            <div *ngIf="detalle_servicios_refrenda.length != 0">
+              <br><h2 class="serv_title">Refrenda</h2><br>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Concepto</th>
+                    <th>Valor</th>
+                    <th>Fecha de Creación</th>
+                    <th>Usuario Creación</th>
+                  </tr>
+                </thead>
+                <tbody class="services">
+                  <tr *ngFor="let ob of detalle_servicios_refrenda">
+                    <td>{{ob.detalle_realizado}}</td>
+                    <td>{{ob.costo}}</td>
+                    <td>{{ob.fecha}}</td>
+                    <td>{{ob.usuario_creacion}}</td>
+                  </tr>
+                </tbody>
+
+              </table>
+            </div>
+
+            <div *ngIf="detalle_servicios_seguro.length != 0">
+              <br><h2 class="serv_title">Seguro</h2><br>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Concepto</th>
+                    <th>Valor</th>
+                    <th>Fecha de Creación</th>
+                    <th>Usuario Creación</th>
+                  </tr>
+                </thead>
+                <tbody class="services">
+                  <tr *ngFor="let ob of detalle_servicios_seguro">
+                    <td>{{ob.detalle_realizado}}</td>
+                    <td>{{ob.costo}}</td>
+                    <td>{{ob.fecha}}</td>
+                    <td>{{ob.usuario_creacion}}</td>
+                  </tr>
+                </tbody>
+
+              </table>
+            </div>
+
+            <div *ngIf="detalle_servicios_gps.length != 0">
+              <br><h2 class="serv_title">GPS</h2><br>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Concepto</th>
+                    <th>Valor</th>
+                    <th>Fecha de Creación</th>
+                    <th>Usuario Creación</th>
+                  </tr>
+                </thead>
+                <tbody class="services">
+                  <tr *ngFor="let ob of detalle_servicios_gps">
+                    <td>{{ob.detalle_realizado}}</td>
+                    <td>{{ob.costo}}</td>
+                    <td>{{ob.fecha}}</td>
+                    <td>{{ob.usuario_creacion}}</td>
+                  </tr>
+                </tbody>
+
+              </table>
+            </div>
+
+            <div *ngIf="detalle_servicios_refrenda.length < 1 && detalle_servicios_seguro.length < 1 && detalle_servicios_gps.length < 1">
+              <h2 class="serv_title">El Vehículo no posee servicios frecuentes asociados</h2>
+            </div>
+
+
+
+
+          </div>
+        </div>
+
+
+        <div   id="agregar" class="content-tab">
+          <div class="contenido" *ngIf="showAddSFVh">
+
+
+                <form [formGroup]="agregarServFrecForm" style="width: 80% !important ;
+                margin: auto !important;">
+                  <div class="field">
+                    <div class="control">
+                      <label class="label">Vehículo</label>
+                    </div>
+                    <div class="columns">
+                      <div class="column is-one-quarter">
+                        <input class="input" type="text" formControlName="vehiculo" placeholder="Vehículo" [(ngModel)]="datosVh.numeracion" readonly>
+                      </div>
+                      <div class="column is-one-quarter">
+                        <input class="input" type="text" formControlName="placa" placeholder="Placa" [(ngModel)]="datosVh.placa" readonly>
+                      </div>
+
+                      <div class="column is-one-quarter">
+                        <input class="input" type="text" formControlName="marca" placeholder="Marca" [(ngModel)]="datosVh.marca" readonly>
+                      </div>
+
+                      <div class="column is-one-quarter">
+                        <input class="input" type="text" formControlName="modelo" placeholder="Modelo" [(ngModel)]="datosVh.modelo" readonly>
+
+                        <input class="input" type="hidden" formControlName="id_vehiculo" [(ngModel)]="datosVh.id">
+                      </div>
+                    </div>
+
+
+
+                  </div>
+
+                  <br>
+
+                  <div class="field">
+                    <div class="control">
+
+                      <label class="label">Servicio a realizar</label>
+                      <div class="control inputSelect">
+                        <div class="select inputSelect is-link">
+                          <select class="inputSelect is-link" formControlName="servicio">
+                            <option selected value="0">Selecciona </option>
+                            <option *ngFor="let vh of obj_servFrec" value="{{vh.nombre}}">{{vh.nombre}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <br>
+                  <div class="field">
+                    <div class="control">
+                      <label class="label">Costo del servicio (sin IVA)</label>
+                      <input class="input" type="number" formControlName="precio" placeholder="Costo del servicio (sin IVA)">
+                      <input class="input" type="hidden" formControlName="usuario" [(ngModel)]="user.alias" >
+
+                    </div>
+                  </div>
+
+                  <br>
+                  <div class="field">
+                    <div class="columns">
+                      <div class="column is-one-third">
+                        <label class="label">Período de cobro inicial: </label>
+                      </div>
+                      <div class="column is-one-third">
+                        <div class="control inputSelect">
+                          <div class="select inputSelect is-link">
+                            <select class="is-link" formControlName="mes" style="width: 100% !important;">
+                              <option selected value="0">Selecciona </option>
+                              <option value="01">Enero</option>
+                              <option value="02">Febrero</option>
+                              <option value="03">Marzo</option>
+                              <option value="04">Abril</option>
+                              <option value="05">Mayo</option>
+                              <option value="06">Junio</option>
+                              <option value="07">Julio</option>
+                              <option value="08">Agosto</option>
+                              <option value="09">Septiembre</option>
+                              <option value="10">Octubre</option>
+                              <option value="11">Noviembre</option>
+                              <option value="12">Diciembre</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                      <div class="column is-one-third">
+                        <div class="control inputSelect">
+                          <div class="select inputSelect is-link">
+                            <select class="is-link" formControlName="anio" style="width: 100% !important;">
+                              <option selected value="0">Selecciona </option>
+                              <option value="2022">2022</option>
+                              <option value="2023">2023</option>
+                              <option value="2024">2024</option>
+                              <option value="2025">2025</option>
+                              <option value="2026">2026</option>
+                              <option value="2027">2027</option>
+                              <option value="2028">2028</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+
+
+                  <br><br>
+                  <div class="field">
+                    <p class="control">
+                      <button class="button is-link is-fullwidth" [disabled] = "agregarServFrecForm.invalid"
+                      (click)="crearServicioFrecuente()">
+                        Crear Servicio
+                      </button>
+                      <br>
+                      <button class="button is-link is-light is-fullwidth" (click)="cerrarmodalServicioFrec()">
+                        Cancelar
+                      </button>
+                    </p>
+                  </div>
+
+                </form>
+          </div>
+
+
+
+        </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-danger is-small" (click)="cerrarmodalServicioFrec()">
+        Cerrar
+      </button>
+    </footer>
   </div>
 </div>

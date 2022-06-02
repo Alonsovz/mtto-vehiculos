@@ -48,4 +48,11 @@ public getDetallesVh(datos: Vehiculos): Observable<Vehiculos[]> {
   .pipe(map(data => data as Vehiculos[] ));
 }
 
+
+public editarContrato(datos: Contratos): Observable<Contratos> {
+  return this.http.post<Contratos>(this.globalservice.getUrlBackEnd() + 'editarContrato', datos, httpOptions)
+  .pipe(map(data => data as Contratos ));
+}
+
+
 }

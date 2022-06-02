@@ -514,7 +514,7 @@
             <form [formGroup]="detalle_mtto_form">
               <div *ngIf="detalle_soli.length > 0">
                 <div class="columns" *ngFor="let dt of detalle_soli">
-                  <div class="column is-one-third" *ngIf="(datos_solicitud.estado  > 0)">
+                  <div class="column is-one-third" *ngIf="(datos_solicitud.estado  > 0 && datos_solicitud.estado < 3)">
                     <ul style="list-style-type: circle;" >
                       <li >
                           {{dt.detalle_realizado}}
@@ -522,23 +522,24 @@
                     </ul>
                   </div>
 
-                  <div class="column is-half" *ngIf="(datos_solicitud.estado  == 4)">
+                  <div class="column is-half" *ngIf="(datos_solicitud.estado  == 4) || (datos_solicitud.estado  == 3)">
                     <ul style="list-style-type: circle;">
-                      <li >
+                      <li>
                           {{dt.detalle_realizado}} ---
-                          <b> $ {{dt.precio_format}}</b>
+                          <b *ngIf="dt.precio != null"> $ {{dt.precio_format}}</b>
+
                       </li>
                     </ul>
 
                   </div>
 
                   <div class="column is-one-third" *ngIf="(datos_solicitud.estado  == 3) &&
-                    (user.rol =='Administrador' || user.rol =='Encargado de mantenimiento')">
+                    (user.rol =='Administrador' || user.rol =='Encargado de mantenimiento') && (dt.precio_format == null)">
                     <input class="input is-link" type="text" formControlName="precio" placeholder="Precio">
                   </div>
 
                   <div *ngIf="(datos_solicitud.estado  == 3) &&
-                    (user.rol =='Administrador' || user.rol =='Encargado de mantenimiento')">
+                    (user.rol =='Administrador' || user.rol =='Encargado de mantenimiento') && (dt.precio_format == null)">
                     <button style="margin-top: 15px !important; " class="button is-link is-small" (click)="guardarPrecio(dt)">Guardar</button>
                   </div>
 
@@ -546,8 +547,52 @@
 
                 </div>
 
+
+
+
+              </div>
+
+              <br><br>
+              <div class="columns">
+
+                <div class="column is-one-fifth">
+                  <label class="label">Agregar detalle del mtto</label>
+                </div>
+
+                <div class="column is-one-third">
+                  <div class="select inputSelect is-link">
+                    <select class="inputSelect is-link" formControlName="detalles_mtto">
+                      <option set selected value="0">Selecciona</option>
+                      <option *ngFor="let dt of tipo_mtto" value="{{dt.nombre}}">{{dt.nombre}}</option>
+                    </select>
+
+                  </div>
+
+
+                </div>
+
+
+                <div class="column is-one-fifth">
+                  <label class="label">Precio de Mtto</label>
+                </div>
+
+                <div class="column is-one-fifth">
+                  <input class="input is-link" type="text" formControlName="precio_mtto" placeholder="Precio">
+                  <input class="input is-link" type="hidden" formControlName="solicitud" [(ngModel)]="datos_solicitud.id">
+                </div>
+
+                <div class="column is-one-fifth" *ngIf="tipo_mtto != null">
+                  <button class="button is-success is-light" (click)="addDetalle()">
+                    <img src="./assets/img/plus.png" >
+                  </button>
+                </div>
+
+
               </div>
             </form>
+
+
+
           </div>
 
           <br>

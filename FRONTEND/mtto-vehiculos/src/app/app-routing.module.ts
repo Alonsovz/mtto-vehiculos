@@ -14,11 +14,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
   },
   {path: '**', pathMatch: 'full', redirectTo: 'login' },
-  {path: '', pathMatch: 'full', canActivate: [CredencialesGuard], redirectTo: 'login' },
-  
+  {path: '', pathMatch: 'full', redirectTo: 'login' },
+
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{useHash:true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

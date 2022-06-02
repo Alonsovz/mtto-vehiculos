@@ -4,11 +4,12 @@ import { SearchusuarioPipe } from './searchusuario.pipe';
 import { SearchvehiculosPipe } from './searchvehiculos.pipe';
 import { SearchcontratoPipe } from './searchcontrato.pipe';
 import { SearchtalleresPipe } from './searchtalleres.pipe';
+import { SearchdetallePipe } from './searchdetalle.pipe';
 
 
 
 @NgModule({
-  declarations: [SearchusuarioPipe, SearchvehiculosPipe, SearchcontratoPipe, SearchtalleresPipe],
+  declarations: [SearchusuarioPipe, SearchvehiculosPipe, SearchcontratoPipe, SearchtalleresPipe, SearchdetallePipe],
   imports: [
     CommonModule
   ],
@@ -16,7 +17,8 @@ import { SearchtalleresPipe } from './searchtalleres.pipe';
     SearchusuarioPipe,
     SearchvehiculosPipe,
     SearchcontratoPipe,
-    SearchtalleresPipe
+    SearchtalleresPipe,
+    SearchdetallePipe
   ]
 })
 export class PipesModule { }

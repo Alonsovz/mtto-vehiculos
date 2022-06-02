@@ -8,6 +8,6 @@ export class GlobalService {
   constructor() { }
 
   public getUrlBackEnd() {
-    return 'http://192.168.50.65:8095/';
+    return 'http://localhost:8000/';
   }
 }

@@ -12,6 +12,7 @@ import { Usuario } from 'src/app/models/usuario';
 import { Vehiculos } from 'src/app/models/vehiculos';
 import { AdminSolicitudService } from 'src/app/services/admin-solicitud.service';
 import { GlobalService } from 'src/app/services/global.service';
+import { NSolicitudService } from 'src/app/services/n-solicitud.service';
 import { TalleresService } from 'src/app/services/talleres.service';
 import { VehiculosService } from 'src/app/services/vehiculos.service';
 
@@ -49,13 +50,14 @@ export class AdminSolicitudComponent implements OnInit {
   detalle_mtto_form: FormGroup;
   archivo!: File;
   extension: string;
-
+  lista_mttos: DetalleMtto[] = [];
   archivoRuta : SafeResourceUrl;
+  tipo_mtto: any;
 
   constructor(private router: Router,private crf: ChangeDetectorRef,private vehiculo: VehiculosService,
     private soliService: AdminSolicitudService, private toastr: ToastrService,
     private taller_service: TalleresService, private cdRef:ChangeDetectorRef, private http: HttpClient, private urlBackEnd: GlobalService,
-    public sanitizer: DomSanitizer,) {
+    public sanitizer: DomSanitizer, private soli_service: NSolicitudService,) {
       this.n_solicitud_form = new FormGroup({
         'nombreSolicitante': new FormControl('',[Validators.required]),
         'departamento': new FormControl('',[Validators.required]),
@@ -83,7 +85,10 @@ export class AdminSolicitudComponent implements OnInit {
 
       this.detalle_mtto_form= new FormGroup({
         'id': new FormControl('',[Validators.required]),
+        'solicitud': new FormControl('',[Validators.required]),
         'precio': new FormControl('',[Validators.required]),
+        'detalles_mtto' : new FormControl('0',[Validators.required]),
+        'precio_mtto': new FormControl('',[Validators.required]),
       });
     }
 
@@ -109,6 +114,8 @@ export class AdminSolicitudComponent implements OnInit {
           data => {
             this.objTalleres = data;
           });
+
+
   }else{
     this.router.navigate(['login']);
   }
@@ -264,6 +271,15 @@ subir_archivo(fileInput: any) {
     else if(tabName === "finalizadas"){
       this.getSoli_Fin();
     }
+
+    if(this.user.rol === 'Solicitante'){
+      this.getMisSoli_ing();
+      this.getConteoUser();
+    }else{
+      this.getSoli_ing();
+      this.getConteoAdmin();
+    }
+
   }
 
   //eventos de tabs para solicitante
@@ -289,6 +305,14 @@ subir_archivo(fileInput: any) {
     }
     else if(tabName === "mis_finalizadas"){
       this.getMisSolicitudes_Fin();
+    }
+
+    if(this.user.rol === 'Solicitante'){
+      this.getMisSoli_ing();
+      this.getConteoUser();
+    }else{
+      this.getSoli_ing();
+      this.getConteoAdmin();
     }
 
   }
@@ -372,6 +396,7 @@ subir_archivo(fileInput: any) {
 
 
 
+
     this.datos_solicitud = solicitud;
 
     this.soliService.get_detalle_soli(solicitud).subscribe(
@@ -382,6 +407,12 @@ subir_archivo(fileInput: any) {
 
       },
       () => {
+
+        this.soli_service.getTipoMtto(solicitud).subscribe(
+          data => {
+            this.tipo_mtto = data;
+          });
+
         var modalDlg = document.querySelector('#modalSolicitud');
         modalDlg.classList.add('is-active');
       },
@@ -475,7 +506,7 @@ subir_archivo(fileInput: any) {
         this.toastr.error('Error','Error al guardar datos');
       },
       () => {
-          this.toastr.success('Éxito','Solicitud aprobada con éxito');
+          this.toastr.success('Éxito','Solicitud finalizada con éxito');
           this.getConteoAdmin();
           this.getConteoUser();
       },
@@ -497,10 +528,48 @@ subir_archivo(fileInput: any) {
         this.toastr.error('Error','Error al guardar datos');
       },
       () => {
+
+        this.soliService.get_detalle_soli(this.datos_solicitud).subscribe(
+          response => {
+            this.detalle_soli = response;
+          },
+          err => {
+
+          },
+          () => {});
+
           this.toastr.success('Éxito','Precio guardado');
 
       },
     );
   }
+
+
+  addDetalle(){
+    let datos : DetalleMtto = new DetalleMtto();
+
+    datos = this.detalle_mtto_form.value;
+
+    this.soliService.addDetalleMtto(datos).subscribe(
+      response => {
+      },
+      err => {
+        this.toastr.error('Error','Error al guardar datos');
+      },
+      () => {
+        this.soliService.get_detalle_soli(this.datos_solicitud).subscribe(
+          response => {
+            this.detalle_soli = response;
+          },
+          err => {
+
+          },
+          () => {}
+        );
+          this.toastr.success('Éxito','Agregado con éxito');
+
+      },
+    );
+}
 
 }

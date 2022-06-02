@@ -106,4 +106,11 @@ export class AdminSolicitudService {
     }
 
 
+
+    public addDetalleMtto(data: DetalleMtto): Observable<DetalleMtto> {
+      return this.http.post<DetalleMtto>(this.globalservice.getUrlBackEnd() + 'addDetalleMtto', data, httpOptions)
+      .pipe(map(data => data as DetalleMtto));
+    }
+
+
 }

@@ -42,6 +42,10 @@ const routes: Routes = [
         path: 'talleres',
         loadChildren: () => import('./../talleres/talleres.module').then(m => m.TalleresModule)
       },
+      {
+        path: 'detalles-mtto',
+        loadChildren: () => import('./../detalles-mtto/detalles-mtto.module').then(m => m.DetallesMttoModule)
+      },
     ]
   }
 ];
